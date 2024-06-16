@@ -16,8 +16,8 @@ use ruff_macros::CacheKey;
 use crate::line_width::LineLength;
 use crate::registry::{Linter, Rule};
 use crate::rules::{
-    flake8_annotations, flake8_bandit, flake8_boolean_trap, flake8_bugbear, flake8_builtins,
-    flake8_comprehensions, flake8_copyright, flake8_errmsg, flake8_gettext,
+    custom_naming, flake8_annotations, flake8_bandit, flake8_boolean_trap, flake8_bugbear,
+    flake8_builtins, flake8_comprehensions, flake8_copyright, flake8_errmsg, flake8_gettext,
     flake8_implicit_str_concat, flake8_import_conventions, flake8_pytest_style, flake8_quotes,
     flake8_self, flake8_tidy_imports, flake8_type_checking, flake8_unused_arguments, isort, mccabe,
     pep8_naming, pycodestyle, pydocstyle, pyflakes, pylint, pyupgrade,
@@ -240,6 +240,7 @@ pub struct LinterSettings {
     pub typing_modules: Vec<String>,
 
     // Plugins
+    pub custom_naming: custom_naming::settings::Settings,
     pub flake8_annotations: flake8_annotations::settings::Settings,
     pub flake8_bandit: flake8_bandit::settings::Settings,
     pub flake8_boolean_trap: flake8_boolean_trap::settings::Settings,
@@ -403,6 +404,7 @@ impl LinterSettings {
 
             task_tags: TASK_TAGS.iter().map(ToString::to_string).collect(),
             typing_modules: vec![],
+            custom_naming: custom_naming::settings::Settings::default(),
             flake8_annotations: flake8_annotations::settings::Settings::default(),
             flake8_bandit: flake8_bandit::settings::Settings::default(),
             flake8_boolean_trap: flake8_boolean_trap::settings::Settings::default(),

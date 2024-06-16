@@ -608,6 +608,9 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Pydocstyle, "418") => (RuleGroup::Stable, rules::pydocstyle::rules::OverloadWithDocstring),
         (Pydocstyle, "419") => (RuleGroup::Stable, rules::pydocstyle::rules::EmptyDocstring),
 
+        // custom-naming
+        (CustomNaming, "001") => (RuleGroup::Stable, rules::custom_naming::rules::InvalidTestName),
+
         // pep8-naming
         (PEP8Naming, "801") => (RuleGroup::Stable, rules::pep8_naming::rules::InvalidClassName),
         (PEP8Naming, "802") => (RuleGroup::Stable, rules::pep8_naming::rules::InvalidFunctionName),

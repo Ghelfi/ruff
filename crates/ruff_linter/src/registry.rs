@@ -46,6 +46,9 @@ pub enum Linter {
     /// [isort](https://pypi.org/project/isort/)
     #[prefix = "I"]
     Isort,
+    /// [custom-naming](https://pypi.org/project/pep8-naming/)
+    #[prefix = "C"]
+    CustomNaming,
     /// [pep8-naming](https://pypi.org/project/pep8-naming/)
     #[prefix = "N"]
     PEP8Naming,
