@@ -56,7 +56,7 @@ impl Violation for InvalidTestName {
     }
 }
 
-/// N802
+/// C001
 pub(crate) fn invalid_test_name(
     stmt: &Stmt,
     name: &str,
