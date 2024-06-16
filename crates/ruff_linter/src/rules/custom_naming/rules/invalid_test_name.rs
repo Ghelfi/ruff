@@ -9,7 +9,9 @@ use ruff_python_stdlib::str;
 
 use crate::rules::custom_naming::settings::IgnoreNames;
 
-/// Update Doc
+use regex::Regex;
+
+/// TODO(aghelfi): Update Doc
 /// ## What it does
 /// Checks for functions names that do not follow the `snake_case` naming
 /// convention.
@@ -64,8 +66,8 @@ pub(crate) fn invalid_test_name(
     ignore_names: &IgnoreNames,
     semantic: &SemanticModel,
 ) -> Option<Diagnostic> {
-    // Ignore any function names that are already lowercase.
-    if str::is_lowercase(name) {
+    // Ignore any function names that does not start with test_.
+    if !str::starts_with(name, "test_") {
         return None;
     }
 
@@ -80,6 +82,14 @@ pub(crate) fn invalid_test_name(
 
     // Ignore any explicitly-allowed names.
     if ignore_names.matches(name) {
+        return None;
+    }
+
+    // TODO(aghelfi): add proper pattern
+    let pattern = r"([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)";
+    let regex = Regex::new(pattern).unwrap();
+
+    if regex.is_match(name) {
         return None;
     }
 
