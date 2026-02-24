@@ -1,0 +1,289 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:11:5
+   |
+10 | # Basic torch.Tensor() calls
+11 | x = torch.Tensor()
+   |     ^^^^^^^^^^^^
+12 | x = torch.Tensor([1, 2, 3])
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+8  | # Errors (should trigger TORCH001)
+9  | 
+10 | # Basic torch.Tensor() calls
+   - x = torch.Tensor()
+11 + x = torch.tensor()
+12 | x = torch.Tensor([1, 2, 3])
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:12:5
+   |
+10 | # Basic torch.Tensor() calls
+11 | x = torch.Tensor()
+12 | x = torch.Tensor([1, 2, 3])
+   |     ^^^^^^^^^^^^
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+9  | 
+10 | # Basic torch.Tensor() calls
+11 | x = torch.Tensor()
+   - x = torch.Tensor([1, 2, 3])
+12 + x = torch.tensor([1, 2, 3])
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+15 | 
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:13:5
+   |
+11 | x = torch.Tensor()
+12 | x = torch.Tensor([1, 2, 3])
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+   |     ^^^^^^^^^^^^
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+10 | # Basic torch.Tensor() calls
+11 | x = torch.Tensor()
+12 | x = torch.Tensor([1, 2, 3])
+   - x = torch.Tensor([[1, 2], [3, 4]])
+13 + x = torch.tensor([[1, 2], [3, 4]])
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+15 | 
+16 | # With alias
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:14:5
+   |
+12 | x = torch.Tensor([1, 2, 3])
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+   |     ^^^^^^^^^^^^
+15 |
+16 | # With alias
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+11 | x = torch.Tensor()
+12 | x = torch.Tensor([1, 2, 3])
+13 | x = torch.Tensor([[1, 2], [3, 4]])
+   - x = torch.Tensor([1.0, 2.0, 3.0])
+14 + x = torch.tensor([1.0, 2.0, 3.0])
+15 | 
+16 | # With alias
+17 | x = th.Tensor()
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:17:5
+   |
+16 | # With alias
+17 | x = th.Tensor()
+   |     ^^^^^^^^^
+18 | x = th.Tensor([1, 2, 3])
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+14 | x = torch.Tensor([1.0, 2.0, 3.0])
+15 | 
+16 | # With alias
+   - x = th.Tensor()
+17 + x = th.tensor()
+18 | x = th.Tensor([1, 2, 3])
+19 | 
+20 | # From import
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:18:5
+   |
+16 | # With alias
+17 | x = th.Tensor()
+18 | x = th.Tensor([1, 2, 3])
+   |     ^^^^^^^^^
+19 |
+20 | # From import
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+15 | 
+16 | # With alias
+17 | x = th.Tensor()
+   - x = th.Tensor([1, 2, 3])
+18 + x = th.tensor([1, 2, 3])
+19 | 
+20 | # From import
+21 | x = Tensor()
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:21:5
+   |
+20 | # From import
+21 | x = Tensor()
+   |     ^^^^^^
+22 | x = Tensor([1, 2, 3])
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+18 | x = th.Tensor([1, 2, 3])
+19 | 
+20 | # From import
+   - x = Tensor()
+21 + x = torch.tensor()
+22 | x = Tensor([1, 2, 3])
+23 | 
+24 | # Aliased from-import
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:22:5
+   |
+20 | # From import
+21 | x = Tensor()
+22 | x = Tensor([1, 2, 3])
+   |     ^^^^^^
+23 |
+24 | # Aliased from-import
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+19 | 
+20 | # From import
+21 | x = Tensor()
+   - x = Tensor([1, 2, 3])
+22 + x = torch.tensor([1, 2, 3])
+23 | 
+24 | # Aliased from-import
+25 | x = T()
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:25:5
+   |
+24 | # Aliased from-import
+25 | x = T()
+   |     ^
+26 | x = T([1, 2, 3])
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+22 | x = Tensor([1, 2, 3])
+23 | 
+24 | # Aliased from-import
+   - x = T()
+25 + x = torch.tensor()
+26 | x = T([1, 2, 3])
+27 | 
+28 | # With keyword arguments
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:26:5
+   |
+24 | # Aliased from-import
+25 | x = T()
+26 | x = T([1, 2, 3])
+   |     ^
+27 |
+28 | # With keyword arguments
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+23 | 
+24 | # Aliased from-import
+25 | x = T()
+   - x = T([1, 2, 3])
+26 + x = torch.tensor([1, 2, 3])
+27 | 
+28 | # With keyword arguments
+29 | x = torch.Tensor([1, 2, 3], devie="cpu")
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:29:5
+   |
+28 | # With keyword arguments
+29 | x = torch.Tensor([1, 2, 3], devie="cpu")
+   |     ^^^^^^^^^^^^
+30 | x = th.Tensor([1, 2, 3], devie="cpu")
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+26 | x = T([1, 2, 3])
+27 | 
+28 | # With keyword arguments
+   - x = torch.Tensor([1, 2, 3], devie="cpu")
+29 + x = torch.tensor([1, 2, 3], devie="cpu")
+30 | x = th.Tensor([1, 2, 3], devie="cpu")
+31 | 
+32 | # Nested in expressions
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:30:5
+   |
+28 | # With keyword arguments
+29 | x = torch.Tensor([1, 2, 3], devie="cpu")
+30 | x = th.Tensor([1, 2, 3], devie="cpu")
+   |     ^^^^^^^^^
+31 |
+32 | # Nested in expressions
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+27 | 
+28 | # With keyword arguments
+29 | x = torch.Tensor([1, 2, 3], devie="cpu")
+   - x = th.Tensor([1, 2, 3], devie="cpu")
+30 + x = th.tensor([1, 2, 3], devie="cpu")
+31 | 
+32 | # Nested in expressions
+33 | y = foo(torch.Tensor([1, 2, 3]))
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:33:9
+   |
+32 | # Nested in expressions
+33 | y = foo(torch.Tensor([1, 2, 3]))
+   |         ^^^^^^^^^^^^
+34 | z = [torch.Tensor([i]) for i in range(10)]
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+30 | x = th.Tensor([1, 2, 3], devie="cpu")
+31 | 
+32 | # Nested in expressions
+   - y = foo(torch.Tensor([1, 2, 3]))
+33 + y = foo(torch.tensor([1, 2, 3]))
+34 | z = [torch.Tensor([i]) for i in range(10)]
+35 | 
+36 | # Multi-line call
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:34:6
+   |
+32 | # Nested in expressions
+33 | y = foo(torch.Tensor([1, 2, 3]))
+34 | z = [torch.Tensor([i]) for i in range(10)]
+   |      ^^^^^^^^^^^^
+35 |
+36 | # Multi-line call
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+31 | 
+32 | # Nested in expressions
+33 | y = foo(torch.Tensor([1, 2, 3]))
+   - z = [torch.Tensor([i]) for i in range(10)]
+34 + z = [torch.tensor([i]) for i in range(10)]
+35 | 
+36 | # Multi-line call
+37 | x = torch.Tensor(
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+  --> TORCH001.py:37:5
+   |
+36 | # Multi-line call
+37 | x = torch.Tensor(
+   |     ^^^^^^^^^^^^
+38 |     [1, 2, 3],
+39 | )
+   |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+34 | z = [torch.Tensor([i]) for i in range(10)]
+35 | 
+36 | # Multi-line call
+   - x = torch.Tensor(
+37 + x = torch.tensor(
+38 |     [1, 2, 3],
+39 | )
+40 |
