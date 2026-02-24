@@ -205,6 +205,9 @@ pub enum Linter {
     /// Ruff-specific rules
     #[prefix = "RUF"]
     Ruff,
+    /// [torch](https://pytorch.org/docs/stable/index.html)
+    #[prefix = "TORCH"]
+    Torch,
     /// [tryceratops](https://pypi.org/project/tryceratops/)
     #[prefix = "TRY"]
     Tryceratops,

@@ -1,0 +1,32 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+ --> TORCH001_noqa_code_per_line.py:3:5
+  |
+1 | import torch
+2 |
+3 | x = torch.Tensor() # ruff: noqa: TORCH001
+  |     ^^^^^^^^^^^^
+4 | x = torch.Tensor()
+  |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+1 | import torch
+2 | 
+  - x = torch.Tensor() # ruff: noqa: TORCH001
+3 + x = torch.tensor() # ruff: noqa: TORCH001
+4 | x = torch.Tensor()
+
+TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
+ --> TORCH001_noqa_code_per_line.py:4:5
+  |
+3 | x = torch.Tensor() # ruff: noqa: TORCH001
+4 | x = torch.Tensor()
+  |     ^^^^^^^^^^^^
+  |
+help: Replace `torch.Tensor()` with `torch.tensor()`
+1 | import torch
+2 | 
+3 | x = torch.Tensor() # ruff: noqa: TORCH001
+  - x = torch.Tensor()
+4 + x = torch.tensor()
