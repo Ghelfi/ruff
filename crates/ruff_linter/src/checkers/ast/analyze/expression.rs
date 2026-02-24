@@ -11,6 +11,7 @@ use crate::preview::{
     is_future_required_preview_generics_enabled, is_up006_future_annotations_fix_enabled,
 };
 use crate::registry::Rule;
+use crate::rules::torch;
 use crate::rules::{
     airflow, flake8_2020, flake8_async, flake8_bandit, flake8_boolean_trap, flake8_bugbear,
     flake8_builtins, flake8_comprehensions, flake8_datetimez, flake8_debugger, flake8_django,
@@ -19,6 +20,7 @@ use crate::rules::{
     flake8_simplify, flake8_tidy_imports, flake8_type_checking, flake8_use_pathlib, flynt, numpy,
     pandas_vet, pep8_naming, pycodestyle, pyflakes, pylint, pyupgrade, refurb, ruff,
 };
+/// Keeping it separate for easy rebase.
 use ruff_python_ast::PythonVersion;
 
 /// Run lint rules over an [`Expr`] syntax node.
@@ -1376,6 +1378,10 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             }
             if checker.is_rule_enabled(Rule::AssertRaisesException) {
                 flake8_bugbear::rules::assert_raises_exception_call(checker, call);
+            }
+            // torch
+            if checker.is_rule_enabled(Rule::TensorConstructor) {
+                torch::rules::tensor_constructor(checker, call);
             }
         }
         Expr::Dict(dict) => {
