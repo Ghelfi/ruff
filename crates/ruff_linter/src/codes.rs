@@ -1201,6 +1201,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Flake8Logging, "015") => rules::flake8_logging::rules::RootLoggerCall,
 
         (Torch, "001") => rules::torch::rules::TensorConstructor,
+        (Torch, "002") => rules::torch::rules::TensorDataAccess,
 
         _ => return None,
     })

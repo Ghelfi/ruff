@@ -1,0 +1,74 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:10:5
+   |
+ 8 | # Basic tensor.data access
+ 9 | x = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
+10 | y = x.data
+   |     ^^^^^^
+11 |
+12 | # On a variable assigned from aliased import
+   |
+
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:14:5
+   |
+12 | # On a variable assigned from aliased import
+13 | z = th.tensor([1.0])
+14 | w = z.data
+   |     ^^^^^^
+15 |
+16 | # Chained with further attribute access
+   |
+
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:17:5
+   |
+16 | # Chained with further attribute access
+17 | v = x.data.numpy()
+   |     ^^^^^^
+18 |
+19 | # In an expression
+   |
+
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:20:10
+   |
+19 | # In an expression
+20 | result = x.data + 1
+   |          ^^^^^^
+21 |
+22 | # Nested
+   |
+
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:26:9
+   |
+25 | # In a list comprehension
+26 | vals = [t.data for t in tensors]
+   |         ^^^^^^
+27 |
+28 | # On a function return
+   |
+
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:29:10
+   |
+28 | # On a function return
+29 | output = model(input).data
+   |          ^^^^^^^^^^^^^^^^^
+30 |
+31 | # On subscript
+   |
+
+TORCH002 Avoid accessing `tensor.data`; use `tensor.detach()` instead
+  --> TORCH002.py:32:9
+   |
+31 | # On subscript
+32 | batch = batches[0].data
+   |         ^^^^^^^^^^^^^^^
+33 |
+34 | # should NOT trigger TORCH002
+   |

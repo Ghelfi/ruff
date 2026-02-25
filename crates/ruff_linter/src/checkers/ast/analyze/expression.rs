@@ -479,6 +479,10 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::PandasUseOfDotValues) {
                 pandas_vet::rules::attr(checker, attribute);
             }
+            // torch
+            if checker.is_rule_enabled(Rule::TensorDataAccess) {
+                torch::rules::tensor_data_access(checker, attribute);
+            }
             if checker.is_rule_enabled(Rule::ByteStringUsage) {
                 flake8_pyi::rules::bytestring_attribute(checker, expr);
             }

@@ -1479,6 +1479,7 @@ impl<'a> SemanticModel<'a> {
             "six" => self.seen.insert(Modules::SIX),
             "subprocess" => self.seen.insert(Modules::SUBPROCESS),
             "tarfile" => self.seen.insert(Modules::TARFILE),
+            "torch" => self.seen.insert(Modules::TORCH),
             "trio" => self.seen.insert(Modules::TRIO),
             "typing" => self.seen.insert(Modules::TYPING),
             "typing_extensions" => self.seen.insert(Modules::TYPING_EXTENSIONS),
@@ -2259,6 +2260,7 @@ bitflags! {
         const AIRFLOW = 1 << 27;
         const HASHLIB = 1 << 28;
         const CRYPT = 1 << 29;
+        const TORCH = 1 << 30;
     }
 }
 
