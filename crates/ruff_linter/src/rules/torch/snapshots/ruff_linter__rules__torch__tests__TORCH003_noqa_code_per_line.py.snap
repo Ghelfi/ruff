@@ -1,0 +1,18 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+ --> TORCH003_noqa_code_per_line.py:5:7
+  |
+3 | x = torch.tensor([1.0])
+4 | arr = x.numpy()  # noqa: TORCH003
+5 | arr = x.numpy()
+  |       ^^^^^^^^^
+  |
+help: Add `force=True` argument
+2 |
+3 | x = torch.tensor([1.0])
+4 | arr = x.numpy()  # noqa: TORCH003
+  - arr = x.numpy()
+5 + arr = x.numpy(force=True)
+note: This is an unsafe fix and may change runtime behavior
