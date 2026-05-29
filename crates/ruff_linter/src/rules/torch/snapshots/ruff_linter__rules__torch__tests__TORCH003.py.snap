@@ -1,0 +1,167 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:10:7
+   |
+ 8 | # Basic .numpy() without force
+ 9 | x = torch.tensor([1.0, 2.0])
+10 | arr = x.numpy()
+   |       ^^^^^^^^^
+11 |
+12 | # On aliased import result
+   |
+help: Add `force=True` argument
+7  |
+8  | # Basic .numpy() without force
+9  | x = torch.tensor([1.0, 2.0])
+   - arr = x.numpy()
+10 + arr = x.numpy(force=True)
+11 |
+12 | # On aliased import result
+13 | y = th.tensor([1.0])
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:14:8
+   |
+12 | # On aliased import result
+13 | y = th.tensor([1.0])
+14 | arr2 = y.numpy()
+   |        ^^^^^^^^^
+15 |
+16 | # On chained expression
+   |
+help: Add `force=True` argument
+11 |
+12 | # On aliased import result
+13 | y = th.tensor([1.0])
+   - arr2 = y.numpy()
+14 + arr2 = y.numpy(force=True)
+15 |
+16 | # On chained expression
+17 | arr3 = model(input).numpy()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:17:8
+   |
+16 | # On chained expression
+17 | arr3 = model(input).numpy()
+   |        ^^^^^^^^^^^^^^^^^^^^
+18 |
+19 | # On subscript result
+   |
+help: Add `force=True` argument
+14 | arr2 = y.numpy()
+15 |
+16 | # On chained expression
+   - arr3 = model(input).numpy()
+17 + arr3 = model(input).numpy(force=True)
+18 |
+19 | # On subscript result
+20 | arr4 = tensors[0].numpy()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:20:8
+   |
+19 | # On subscript result
+20 | arr4 = tensors[0].numpy()
+   |        ^^^^^^^^^^^^^^^^^^
+21 |
+22 | # With other keyword arguments but no force
+   |
+help: Add `force=True` argument
+17 | arr3 = model(input).numpy()
+18 |
+19 | # On subscript result
+   - arr4 = tensors[0].numpy()
+20 + arr4 = tensors[0].numpy(force=True)
+21 |
+22 | # With other keyword arguments but no force
+23 | arr5 = x.numpy(dtype="float32")
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:23:8
+   |
+22 | # With other keyword arguments but no force
+23 | arr5 = x.numpy(dtype="float32")
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^
+24 |
+25 | # Nested in expression
+   |
+help: Add `force=True` argument
+20 | arr4 = tensors[0].numpy()
+21 |
+22 | # With other keyword arguments but no force
+   - arr5 = x.numpy(dtype="float32")
+23 + arr5 = x.numpy(force=True, dtype="float32")
+24 |
+25 | # Nested in expression
+26 | result = process(x.numpy())
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:26:18
+   |
+25 | # Nested in expression
+26 | result = process(x.numpy())
+   |                  ^^^^^^^^^
+27 |
+28 | # In list comprehension
+   |
+help: Add `force=True` argument
+23 | arr5 = x.numpy(dtype="float32")
+24 |
+25 | # Nested in expression
+   - result = process(x.numpy())
+26 + result = process(x.numpy(force=True))
+27 |
+28 | # In list comprehension
+29 | arrs = [t.numpy() for t in tensors]
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:29:9
+   |
+28 | # In list comprehension
+29 | arrs = [t.numpy() for t in tensors]
+   |         ^^^^^^^^^
+30 |
+31 | # Multi-line call with a trailing comma (exercises argument-insertion edge case)
+   |
+help: Add `force=True` argument
+26 | result = process(x.numpy())
+27 |
+28 | # In list comprehension
+   - arrs = [t.numpy() for t in tensors]
+29 + arrs = [t.numpy(force=True) for t in tensors]
+30 |
+31 | # Multi-line call with a trailing comma (exercises argument-insertion edge case)
+32 | arr7 = x.numpy(
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH003 [*] Missing `force=True` when calling `.numpy()`
+  --> TORCH003.py:32:8
+   |
+31 |   # Multi-line call with a trailing comma (exercises argument-insertion edge case)
+32 |   arr7 = x.numpy(
+   |  ________^
+33 | |     dtype="float32",
+34 | | )
+   | |_^
+35 |
+36 |   # should NOT trigger TORCH003
+   |
+help: Add `force=True` argument
+30 |
+31 | # Multi-line call with a trailing comma (exercises argument-insertion edge case)
+32 | arr7 = x.numpy(
+   -     dtype="float32",
+33 +     force=True, dtype="float32",
+34 | )
+35 |
+36 | # should NOT trigger TORCH003
+note: This is an unsafe fix and may change runtime behavior

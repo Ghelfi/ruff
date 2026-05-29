@@ -1387,6 +1387,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::TensorConstructor) {
                 torch::rules::tensor_constructor(checker, call);
             }
+            if checker.is_rule_enabled(Rule::NumpyMissingForce) {
+                torch::rules::numpy_missing_force(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
