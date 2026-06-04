@@ -1,0 +1,29 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH011 `.clone()` on a grad-tracked tensor without `.detach()`
+  --> TORCH011.py:11:12
+   |
+ 9 | def bad_basic():
+10 |     x = torch.tensor([1.0], requires_grad=True)
+11 |     snap = x.clone()
+   |            ^^^^^^^^^
+   |
+
+TORCH011 `.clone()` on a grad-tracked tensor without `.detach()`
+  --> TORCH011.py:16:12
+   |
+14 | def bad_ann_assign():
+15 |     x: torch.Tensor = torch.tensor([1.0], requires_grad=True)
+16 |     snap = x.clone()
+   |            ^^^^^^^^^
+   |
+
+TORCH011 `.clone()` on a grad-tracked tensor without `.detach()`
+  --> TORCH011.py:21:12
+   |
+19 | def bad_zeros():
+20 |     x = torch.zeros(4, requires_grad=True)
+21 |     snap = x.clone()
+   |            ^^^^^^^^^
+   |

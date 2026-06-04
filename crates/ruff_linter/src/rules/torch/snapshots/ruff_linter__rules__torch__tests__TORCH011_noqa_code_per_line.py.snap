@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH011 `.clone()` on a grad-tracked tensor without `.detach()`
+ --> TORCH011_noqa_code_per_line.py:7:12
+  |
+5 |     x = torch.tensor([1.0], requires_grad=True)
+6 |     snap = x.clone()  # noqa: TORCH011
+7 |     snap = x.clone()
+  |            ^^^^^^^^^
+  |

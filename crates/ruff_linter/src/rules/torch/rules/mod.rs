@@ -1,3 +1,4 @@
+pub(crate) use clone_without_detach::*;
 pub(crate) use device_mismatch::*;
 pub(crate) use inplace_leaf_grad::*;
 pub(crate) use missing_detach::*;
@@ -9,6 +10,7 @@ pub(crate) use tensor_copy_constructor::*;
 pub(crate) use tensor_data_access::*;
 pub(crate) use tensor_missing_device::*;
 
+pub(crate) mod clone_without_detach;
 pub(crate) mod device_mismatch;
 pub(crate) mod inplace_leaf_grad;
 pub(crate) mod missing_detach;
