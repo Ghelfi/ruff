@@ -1234,6 +1234,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "101") => rules::torch::rules::TryInCompile,
         (Torch, "102") => rules::torch::rules::DataDependentIf,
         (Torch, "103") => rules::torch::rules::ItemInCompile,
+        (Torch, "104") => rules::torch::rules::ModuleStateMutation,
 
         _ => return None,
     })
