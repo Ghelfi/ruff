@@ -1,0 +1,38 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH007 In-place op `.add_()` on a leaf tensor that requires grad
+  --> TORCH007.py:11:5
+   |
+ 9 | def bad_add():
+10 |     x = torch.tensor([1.0, 2.0], requires_grad=True)
+11 |     x.add_(1.0)
+   |     ^^^^^^^^^^^
+   |
+
+TORCH007 In-place op `.mul_()` on a leaf tensor that requires grad
+  --> TORCH007.py:16:5
+   |
+14 | def bad_mul():
+15 |     x = torch.tensor([1.0], requires_grad=True)
+16 |     x.mul_(2.0)
+   |     ^^^^^^^^^^^
+   |
+
+TORCH007 In-place op `.zero_()` on a leaf tensor that requires grad
+  --> TORCH007.py:21:5
+   |
+19 | def bad_ann_assign():
+20 |     x: torch.Tensor = torch.tensor([1.0], requires_grad=True)
+21 |     x.zero_()
+   |     ^^^^^^^^^
+   |
+
+TORCH007 In-place op `.fill_()` on a leaf tensor that requires grad
+  --> TORCH007.py:27:5
+   |
+25 |     # Any constructor with requires_grad=True trips it.
+26 |     x = torch.zeros(4, requires_grad=True)
+27 |     x.fill_(0.5)
+   |     ^^^^^^^^^^^^
+   |

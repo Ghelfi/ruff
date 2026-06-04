@@ -1396,6 +1396,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::NoGradToInferenceMode) {
                 torch::rules::no_grad_to_inference_mode(checker, call);
             }
+            if checker.is_rule_enabled(Rule::InplaceLeafGrad) {
+                torch::rules::inplace_leaf_grad(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
