@@ -1,0 +1,18 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH004 [*] Missing `.detach()` before `.numpy()`
+ --> TORCH004_noqa_code_per_line.py:5:7
+  |
+3 | x = torch.tensor([1.0])
+4 | arr = x.numpy()  # noqa: TORCH004
+5 | arr = x.numpy()
+  |       ^^^^^^^^^
+  |
+help: Insert `.detach()` before the call
+2 |
+3 | x = torch.tensor([1.0])
+4 | arr = x.numpy()  # noqa: TORCH004
+  - arr = x.numpy()
+5 + arr = x.detach().numpy()
+note: This is an unsafe fix and may change runtime behavior

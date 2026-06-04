@@ -1,0 +1,122 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH004 [*] Missing `.detach()` before `.numpy()`
+  --> TORCH004.py:10:7
+   |
+ 9 | # Basic .numpy() without detach
+10 | arr = x.numpy()
+   |       ^^^^^^^^^
+11 |
+12 | # Basic .item() without detach
+   |
+help: Insert `.detach()` before the call
+7  | x = torch.tensor([1.0, 2.0], requires_grad=True)
+8  |
+9  | # Basic .numpy() without detach
+   - arr = x.numpy()
+10 + arr = x.detach().numpy()
+11 |
+12 | # Basic .item() without detach
+13 | value = x.item()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH004 [*] Missing `.detach()` before `.item()`
+  --> TORCH004.py:13:9
+   |
+12 | # Basic .item() without detach
+13 | value = x.item()
+   |         ^^^^^^^^
+14 |
+15 | # Basic .tolist() without detach
+   |
+help: Insert `.detach()` before the call
+10 | arr = x.numpy()
+11 |
+12 | # Basic .item() without detach
+   - value = x.item()
+13 + value = x.detach().item()
+14 |
+15 | # Basic .tolist() without detach
+16 | values = x.tolist()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH004 [*] Missing `.detach()` before `.tolist()`
+  --> TORCH004.py:16:10
+   |
+15 | # Basic .tolist() without detach
+16 | values = x.tolist()
+   |          ^^^^^^^^^^
+17 |
+18 | # Chained: .cpu() without detach
+   |
+help: Insert `.detach()` before the call
+13 | value = x.item()
+14 |
+15 | # Basic .tolist() without detach
+   - values = x.tolist()
+16 + values = x.detach().tolist()
+17 |
+18 | # Chained: .cpu() without detach
+19 | arr2 = x.cpu().numpy()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH004 [*] Missing `.detach()` before `.numpy()`
+  --> TORCH004.py:19:8
+   |
+18 | # Chained: .cpu() without detach
+19 | arr2 = x.cpu().numpy()
+   |        ^^^^^^^^^^^^^^^
+20 |
+21 | # Chained: subscript receiver
+   |
+help: Insert `.detach()` before the call
+16 | values = x.tolist()
+17 |
+18 | # Chained: .cpu() without detach
+   - arr2 = x.cpu().numpy()
+19 + arr2 = x.cpu().detach().numpy()
+20 |
+21 | # Chained: subscript receiver
+22 | arr3 = tensors[0].item()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH004 [*] Missing `.detach()` before `.item()`
+  --> TORCH004.py:22:8
+   |
+21 | # Chained: subscript receiver
+22 | arr3 = tensors[0].item()
+   |        ^^^^^^^^^^^^^^^^^
+23 |
+24 | # Inside a larger expression
+   |
+help: Insert `.detach()` before the call
+19 | arr2 = x.cpu().numpy()
+20 |
+21 | # Chained: subscript receiver
+   - arr3 = tensors[0].item()
+22 + arr3 = tensors[0].detach().item()
+23 |
+24 | # Inside a larger expression
+25 | process(x.numpy())
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH004 [*] Missing `.detach()` before `.numpy()`
+  --> TORCH004.py:25:9
+   |
+24 | # Inside a larger expression
+25 | process(x.numpy())
+   |         ^^^^^^^^^
+26 |
+27 | # should NOT trigger TORCH004
+   |
+help: Insert `.detach()` before the call
+22 | arr3 = tensors[0].item()
+23 |
+24 | # Inside a larger expression
+   - process(x.numpy())
+25 + process(x.detach().numpy())
+26 |
+27 | # should NOT trigger TORCH004
+28 |
+note: This is an unsafe fix and may change runtime behavior
