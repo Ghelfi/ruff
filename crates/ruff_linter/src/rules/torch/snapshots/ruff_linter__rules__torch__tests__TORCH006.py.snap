@@ -1,0 +1,97 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH006 [*] Use `torch.inference_mode()` instead of `torch.no_grad()`
+  --> TORCH006.py:12:6
+   |
+11 | # Context manager
+12 | with torch.no_grad():
+   |      ^^^^^^^^^^^^^
+13 |     pass
+   |
+help: Replace `torch.no_grad` with `torch.inference_mode`
+9  |
+10 |
+11 | # Context manager
+   - with torch.no_grad():
+12 + with torch.inference_mode():
+13 |     pass
+14 |
+15 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH006 [*] Use `torch.inference_mode()` instead of `torch.no_grad()`
+  --> TORCH006.py:17:6
+   |
+16 | # Aliased import
+17 | with th.no_grad():
+   |      ^^^^^^^^^^
+18 |     pass
+   |
+help: Replace `torch.no_grad` with `torch.inference_mode`
+14 |
+15 |
+16 | # Aliased import
+   - with th.no_grad():
+17 + with th.inference_mode():
+18 |     pass
+19 |
+20 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH006 [*] Use `torch.inference_mode()` instead of `torch.no_grad()`
+  --> TORCH006.py:22:6
+   |
+21 | # `from torch import no_grad`
+22 | with no_grad():
+   |      ^^^^^^^
+23 |     pass
+   |
+help: Replace `torch.no_grad` with `torch.inference_mode`
+19 |
+20 |
+21 | # `from torch import no_grad`
+   - with no_grad():
+22 + with torch.inference_mode():
+23 |     pass
+24 |
+25 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH006 [*] Use `torch.inference_mode()` instead of `torch.no_grad()`
+  --> TORCH006.py:27:2
+   |
+26 | # Decorator factory (call expression)
+27 | @torch.no_grad()
+   |  ^^^^^^^^^^^^^
+28 | def predict(x):
+29 |     return x
+   |
+help: Replace `torch.no_grad` with `torch.inference_mode`
+24 |
+25 |
+26 | # Decorator factory (call expression)
+   - @torch.no_grad()
+27 + @torch.inference_mode()
+28 | def predict(x):
+29 |     return x
+30 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH006 [*] Use `torch.inference_mode()` instead of `torch.no_grad()`
+  --> TORCH006.py:33:7
+   |
+32 | # Bare call
+33 | ctx = torch.no_grad()
+   |       ^^^^^^^^^^^^^
+   |
+help: Replace `torch.no_grad` with `torch.inference_mode`
+30 |
+31 |
+32 | # Bare call
+   - ctx = torch.no_grad()
+33 + ctx = torch.inference_mode()
+34 |
+35 |
+36 | # should NOT trigger TORCH006
+note: This is an unsafe fix and may change runtime behavior

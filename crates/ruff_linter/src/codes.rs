@@ -1232,6 +1232,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "003") => rules::torch::rules::NumpyMissingForce,
         (Torch, "004") => rules::torch::rules::MissingDetach,
         (Torch, "005") => rules::torch::rules::MissingEval,
+        (Torch, "006") => rules::torch::rules::NoGradToInferenceMode,
 
         _ => return None,
     })
