@@ -90,6 +90,10 @@ mod tests {
     #[test_case(Rule::DataDependentIf, Path::new("TORCH102_noqa_all.py"))]
     #[test_case(Rule::DataDependentIf, Path::new("TORCH102_noqa_code.py"))]
     #[test_case(Rule::DataDependentIf, Path::new("TORCH102_noqa_code_per_line.py"))]
+    #[test_case(Rule::ItemInCompile, Path::new("TORCH103.py"))]
+    #[test_case(Rule::ItemInCompile, Path::new("TORCH103_noqa_all.py"))]
+    #[test_case(Rule::ItemInCompile, Path::new("TORCH103_noqa_code.py"))]
+    #[test_case(Rule::ItemInCompile, Path::new("TORCH103_noqa_code_per_line.py"))]
     fn rules(rule_code: Rule, path: &Path) -> Result<()> {
         let snapshot = format!("{}", path.to_string_lossy());
         let diagnostics = test_path(

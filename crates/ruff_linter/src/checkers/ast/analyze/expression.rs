@@ -1428,6 +1428,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::PrintInCompile) {
                 torch::rules::print_in_compile(checker, call);
             }
+            if checker.is_rule_enabled(Rule::ItemInCompile) {
+                torch::rules::item_in_compile(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
