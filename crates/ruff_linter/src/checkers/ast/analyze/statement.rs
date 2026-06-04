@@ -1138,6 +1138,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::UnnecessaryIf) {
                 ruff::rules::unnecessary_if(checker, if_);
             }
+            if checker.is_rule_enabled(Rule::DataDependentIf) {
+                torch::rules::data_dependent_if(checker, if_);
+            }
         }
         Stmt::Assert(
             assert_stmt @ ast::StmtAssert {
