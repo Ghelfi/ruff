@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH007 In-place op `.add_()` on a leaf tensor that requires grad
+  --> TORCH007_noqa_code_per_line.py:11:5
+   |
+ 9 | def second():
+10 |     x = torch.tensor([1.0], requires_grad=True)
+11 |     x.add_(1.0)
+   |     ^^^^^^^^^^^
+   |
