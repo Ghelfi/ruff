@@ -1413,6 +1413,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::TensorCopyConstructor) {
                 torch::rules::tensor_copy_constructor(checker, call);
             }
+            if checker.is_rule_enabled(Rule::CloneWithoutDetach) {
+                torch::rules::clone_without_detach(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
