@@ -1,0 +1,50 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH009 Operands are explicitly placed on different devices (CPU vs. CUDA)
+  --> TORCH009.py:10:8
+   |
+ 9 | # Direct .cuda() + .cpu()
+10 | bad1 = a.cuda() + b.cpu()
+   |        ^^^^^^^^^^^^^^^^^^
+11 |
+12 | # .to("cuda") + .to("cpu")
+   |
+
+TORCH009 Operands are explicitly placed on different devices (CPU vs. CUDA)
+  --> TORCH009.py:13:8
+   |
+12 | # .to("cuda") + .to("cpu")
+13 | bad2 = a.to("cuda") + b.to("cpu")
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 |
+15 | # Device string with index
+   |
+
+TORCH009 Operands are explicitly placed on different devices (CPU vs. CUDA)
+  --> TORCH009.py:16:8
+   |
+15 | # Device string with index
+16 | bad3 = a.to("cuda:0") + b.to("cpu")
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17 |
+18 | # Reversed
+   |
+
+TORCH009 Operands are explicitly placed on different devices (CPU vs. CUDA)
+  --> TORCH009.py:19:8
+   |
+18 | # Reversed
+19 | bad4 = a.cpu() * b.cuda()
+   |        ^^^^^^^^^^^^^^^^^^
+20 |
+21 | # Subtraction
+   |
+
+TORCH009 Operands are explicitly placed on different devices (CPU vs. CUDA)
+  --> TORCH009.py:22:8
+   |
+21 | # Subtraction
+22 | bad5 = a.cuda() - b.cpu()
+   |        ^^^^^^^^^^^^^^^^^^
+   |
