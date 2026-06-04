@@ -1230,6 +1230,8 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "013") => rules::torch::rules::SqueezeWithoutDim,
         (Torch, "014") => rules::torch::rules::TensorThenTo,
 
+        (Torch, "100") => rules::torch::rules::PrintInCompile,
+
         _ => return None,
     })
 }

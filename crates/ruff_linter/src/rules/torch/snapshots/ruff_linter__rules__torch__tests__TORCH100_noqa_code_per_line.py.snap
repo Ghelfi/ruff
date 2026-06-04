@@ -1,0 +1,12 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH100 `print()` inside `@torch.compile` function causes a graph break
+ --> TORCH100_noqa_code_per_line.py:7:5
+  |
+5 | def f(x):
+6 |     print(x)  # noqa: TORCH100
+7 |     print(x)
+  |     ^^^^^^^^
+8 |     return x
+  |
