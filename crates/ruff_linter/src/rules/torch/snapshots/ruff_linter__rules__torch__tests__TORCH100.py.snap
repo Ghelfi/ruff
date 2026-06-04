@@ -1,0 +1,43 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH100 `print()` inside `@torch.compile` function causes a graph break
+  --> TORCH100.py:11:5
+   |
+ 9 | @torch.compile
+10 | def bad_bare_decorator(x):
+11 |     print(x)
+   |     ^^^^^^^^
+12 |     return x + 1
+   |
+
+TORCH100 `print()` inside `@torch.compile` function causes a graph break
+  --> TORCH100.py:17:5
+   |
+15 | @torch.compile(mode="default")
+16 | def bad_decorator_factory(x):
+17 |     print("hello", x)
+   |     ^^^^^^^^^^^^^^^^^
+18 |     return x + 1
+   |
+
+TORCH100 `print()` inside `@torch.compile` function causes a graph break
+  --> TORCH100.py:24:9
+   |
+22 | def bad_nested_print(x):
+23 |     if x.sum() > 0:
+24 |         print(x)
+   |         ^^^^^^^^
+25 |     return x
+   |
+
+TORCH100 `print()` inside `@torch.compile` function causes a graph break
+  --> TORCH100.py:31:9
+   |
+29 | def bad_inner_function(x):
+30 |     def inner():
+31 |         print(x)
+   |         ^^^^^^^^
+32 |
+33 |     inner()
+   |
