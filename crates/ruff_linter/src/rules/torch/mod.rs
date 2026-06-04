@@ -47,6 +47,10 @@ mod tests {
     #[test_case(Rule::InplaceLeafGrad, Path::new("TORCH007_noqa_all.py"))]
     #[test_case(Rule::InplaceLeafGrad, Path::new("TORCH007_noqa_code.py"))]
     #[test_case(Rule::InplaceLeafGrad, Path::new("TORCH007_noqa_code_per_line.py"))]
+    #[test_case(Rule::TensorMissingDevice, Path::new("TORCH008.py"))]
+    #[test_case(Rule::TensorMissingDevice, Path::new("TORCH008_noqa_all.py"))]
+    #[test_case(Rule::TensorMissingDevice, Path::new("TORCH008_noqa_code.py"))]
+    #[test_case(Rule::TensorMissingDevice, Path::new("TORCH008_noqa_code_per_line.py"))]
     fn rules(rule_code: Rule, path: &Path) -> Result<()> {
         let snapshot = format!("{}", path.to_string_lossy());
         let diagnostics = test_path(
