@@ -1,0 +1,40 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH005 Missing `model.eval()` before inference block
+  --> TORCH005.py:11:5
+   |
+ 9 |   def predict_bad(model, x):
+10 |       # No .eval() anywhere in the enclosing function.
+11 | /     with torch.no_grad():
+12 | |         return model(x)
+   | |_______________________^
+   |
+
+TORCH005 Missing `model.eval()` before inference block
+  --> TORCH005.py:16:5
+   |
+15 |   def predict_bad_inference(model, x):
+16 | /     with torch.inference_mode():
+17 | |         return model(x)
+   | |_______________________^
+   |
+
+TORCH005 Missing `model.eval()` before inference block
+  --> TORCH005.py:21:5
+   |
+20 |   def predict_bad_multi_item(model, x):
+21 | /     with torch.no_grad(), open("/tmp/log", "w") as f:
+22 | |         return model(x)
+   | |_______________________^
+   |
+
+TORCH005 Missing `model.eval()` before inference block
+  --> TORCH005.py:30:5
+   |
+28 |           model.eval()
+29 |
+30 | /     with torch.no_grad():
+31 | |         return model(x)
+   | |_______________________^
+   |

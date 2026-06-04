@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH005 Missing `model.eval()` before inference block
+  --> TORCH005_noqa_code_per_line.py:10:5
+   |
+ 9 |   def predict_second(model, x):
+10 | /     with torch.no_grad():
+11 | |         return model(x)
+   | |_______________________^
+   |
