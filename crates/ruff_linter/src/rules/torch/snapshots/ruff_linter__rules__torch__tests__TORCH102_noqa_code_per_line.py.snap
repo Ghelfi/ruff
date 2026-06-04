@@ -1,0 +1,13 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH102 `if` on a tensor value inside `@torch.compile` function causes a graph break
+  --> TORCH102_noqa_code_per_line.py:9:8
+   |
+ 7 |     if y.sum() > 0:  # noqa: TORCH102
+ 8 |         return x
+ 9 |     if y.sum() > 0:
+   |        ^^^^^^^^^^^
+10 |         return x
+11 |     return x
+   |

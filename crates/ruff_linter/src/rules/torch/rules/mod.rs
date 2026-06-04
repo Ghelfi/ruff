@@ -1,4 +1,5 @@
 pub(crate) use clone_without_detach::*;
+pub(crate) use data_dependent_if::*;
 pub(crate) use device_mismatch::*;
 pub(crate) use inplace_leaf_grad::*;
 pub(crate) use missing_detach::*;
@@ -16,6 +17,7 @@ pub(crate) use try_in_compile::*;
 pub(crate) use use_to_method::*;
 
 pub(crate) mod clone_without_detach;
+pub(crate) mod data_dependent_if;
 pub(crate) mod device_mismatch;
 pub(crate) mod inplace_leaf_grad;
 pub(crate) mod missing_detach;

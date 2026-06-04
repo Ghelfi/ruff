@@ -1,0 +1,46 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH102 `if` on a tensor value inside `@torch.compile` function causes a graph break
+  --> TORCH102.py:12:8
+   |
+10 | def bad_compare_attr(x):
+11 |     y = torch.zeros(4)
+12 |     if y.sum() > 0:
+   |        ^^^^^^^^^^^
+13 |         return x
+14 |     return x + 1
+   |
+
+TORCH102 `if` on a tensor value inside `@torch.compile` function causes a graph break
+  --> TORCH102.py:20:8
+   |
+18 | def bad_direct_name(x):
+19 |     y = torch.tensor([1.0])
+20 |     if y:
+   |        ^
+21 |         return x
+22 |     return x + 1
+   |
+
+TORCH102 `if` on a tensor value inside `@torch.compile` function causes a graph break
+  --> TORCH102.py:28:8
+   |
+26 | def bad_call_on_tensor(x):
+27 |     y = torch.zeros(4)
+28 |     if y.any():
+   |        ^^^^^^^
+29 |         return x
+30 |     return x + 1
+   |
+
+TORCH102 `if` on a tensor value inside `@torch.compile` function causes a graph break
+  --> TORCH102.py:36:8
+   |
+34 | def bad_with_factory(x):
+35 |     y = torch.ones(4)
+36 |     if y.mean() > 0.5:
+   |        ^^^^^^^^^^^^^^
+37 |         return x
+38 |     return x + 1
+   |
