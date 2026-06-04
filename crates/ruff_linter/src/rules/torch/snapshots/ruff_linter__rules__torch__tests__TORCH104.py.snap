@@ -1,0 +1,62 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+  --> TORCH104.py:11:9
+   |
+ 9 |     @torch.compile
+10 |     def bad_assign(self, x):
+11 |         self.counter = 1
+   |         ^^^^^^^^^^^^
+12 |         return x
+   |
+
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+  --> TORCH104.py:16:9
+   |
+14 |     @torch.compile
+15 |     def bad_aug_assign(self, x):
+16 |         self.counter += 1
+   |         ^^^^^^^^^^^^
+17 |         return x
+   |
+
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+  --> TORCH104.py:21:9
+   |
+19 |     @torch.compile
+20 |     def bad_ann_assign(self, x):
+21 |         self.tag: int = 2
+   |         ^^^^^^^^
+22 |         return x
+   |
+
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+  --> TORCH104.py:26:9
+   |
+24 |     @torch.compile(mode="default")
+25 |     def bad_factory(self, x):
+26 |         self.last_input = x
+   |         ^^^^^^^^^^^^^^^
+27 |         return x
+   |
+
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+  --> TORCH104.py:31:9
+   |
+29 |     @torch.compile
+30 |     def bad_multi_target(self, x):
+31 |         self.a = self.b = 1
+   |         ^^^^^^
+32 |         return x
+   |
+
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+  --> TORCH104.py:31:18
+   |
+29 |     @torch.compile
+30 |     def bad_multi_target(self, x):
+31 |         self.a = self.b = 1
+   |                  ^^^^^^
+32 |         return x
+   |

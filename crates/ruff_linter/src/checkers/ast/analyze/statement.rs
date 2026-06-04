@@ -1000,6 +1000,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::DuplicateEntryInDunderAll) {
                 ruff::rules::duplicate_entry_in_dunder_all_aug_assign(checker, aug_assign);
             }
+            if checker.is_rule_enabled(Rule::ModuleStateMutation) {
+                torch::rules::module_state_aug_assign(checker, aug_assign);
+            }
         }
         Stmt::If(
             if_ @ ast::StmtIf {
@@ -1539,6 +1542,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::NonPEP695TypeAlias) {
                 pyupgrade::rules::non_pep695_type_alias_type(checker, assign);
             }
+            if checker.is_rule_enabled(Rule::ModuleStateMutation) {
+                torch::rules::module_state_assign(checker, assign);
+            }
         }
         Stmt::AnnAssign(
             assign_stmt @ ast::StmtAnnAssign {
@@ -1590,6 +1596,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             }
             if checker.is_rule_enabled(Rule::DuplicateEntryInDunderAll) {
                 ruff::rules::duplicate_entry_in_dunder_all_ann_assign(checker, assign_stmt);
+            }
+            if checker.is_rule_enabled(Rule::ModuleStateMutation) {
+                torch::rules::module_state_ann_assign(checker, assign_stmt);
             }
             if checker.source_type.is_stub() {
                 if let Some(value) = value {

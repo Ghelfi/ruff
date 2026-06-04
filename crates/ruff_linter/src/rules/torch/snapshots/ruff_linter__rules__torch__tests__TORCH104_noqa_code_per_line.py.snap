@@ -1,0 +1,12 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH104 Mutation of `self` attribute inside `@torch.compile` function is non-static
+ --> TORCH104_noqa_code_per_line.py:8:9
+  |
+6 |     def forward(self, x):
+7 |         self.counter = 1  # noqa: TORCH104
+8 |         self.other = 2
+  |         ^^^^^^^^^^
+9 |         return x
+  |
