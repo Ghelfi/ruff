@@ -1,0 +1,10 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH009 Operands are explicitly placed on different devices (CPU vs. CUDA)
+ --> TORCH009_noqa_code_per_line.py:4:8
+  |
+3 | bad1 = a.cuda() + b.cpu()  # noqa: TORCH009
+4 | bad2 = a.cuda() + b.cpu()
+  |        ^^^^^^^^^^^^^^^^^^
+  |

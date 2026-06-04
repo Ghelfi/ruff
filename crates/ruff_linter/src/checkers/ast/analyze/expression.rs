@@ -25,6 +25,14 @@ use ruff_python_ast::PythonVersion;
 
 /// Run lint rules over an [`Expr`] syntax node.
 pub(crate) fn expression(expr: &Expr, checker: &Checker) {
+    // Generic binary-op dispatch (not tied to a specific operator). The main
+    // `match` below splits on the operator, so we can't add a catch-all there.
+    if checker.is_rule_enabled(Rule::DeviceMismatch)
+        && let Expr::BinOp(binop) = expr
+    {
+        torch::rules::device_mismatch(checker, binop);
+    }
+
     match expr {
         Expr::Subscript(subscript @ ast::ExprSubscript { value, slice, .. }) => {
             // Ex) Optional[...], Union[...]
