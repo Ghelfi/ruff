@@ -1422,6 +1422,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::SqueezeWithoutDim) {
                 torch::rules::squeeze_without_dim(checker, call);
             }
+            if checker.is_rule_enabled(Rule::TensorThenTo) {
+                torch::rules::tensor_then_to(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

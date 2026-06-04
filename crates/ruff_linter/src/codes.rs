@@ -1228,6 +1228,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "011") => rules::torch::rules::CloneWithoutDetach,
         (Torch, "012") => rules::torch::rules::UseToMethod,
         (Torch, "013") => rules::torch::rules::SqueezeWithoutDim,
+        (Torch, "014") => rules::torch::rules::TensorThenTo,
 
         _ => return None,
     })

@@ -74,6 +74,10 @@ mod tests {
     #[test_case(Rule::SqueezeWithoutDim, Path::new("TORCH013_noqa_all.py"))]
     #[test_case(Rule::SqueezeWithoutDim, Path::new("TORCH013_noqa_code.py"))]
     #[test_case(Rule::SqueezeWithoutDim, Path::new("TORCH013_noqa_code_per_line.py"))]
+    #[test_case(Rule::TensorThenTo, Path::new("TORCH014.py"))]
+    #[test_case(Rule::TensorThenTo, Path::new("TORCH014_noqa_all.py"))]
+    #[test_case(Rule::TensorThenTo, Path::new("TORCH014_noqa_code.py"))]
+    #[test_case(Rule::TensorThenTo, Path::new("TORCH014_noqa_code_per_line.py"))]
     fn rules(rule_code: Rule, path: &Path) -> Result<()> {
         let snapshot = format!("{}", path.to_string_lossy());
         let diagnostics = test_path(

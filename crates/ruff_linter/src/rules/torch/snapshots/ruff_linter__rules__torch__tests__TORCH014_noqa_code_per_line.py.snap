@@ -1,0 +1,17 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH014 [*] Avoid `torch.tensor(...).to(device)`; pass `device=` to `torch.tensor()` instead
+ --> TORCH014_noqa_code_per_line.py:4:5
+  |
+3 | x = torch.tensor([1.0]).to("cuda")  # noqa: TORCH014
+4 | y = torch.tensor([1.0]).to("cuda")
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+help: Move device into `torch.tensor()` call
+1 | import torch
+2 |
+3 | x = torch.tensor([1.0]).to("cuda")  # noqa: TORCH014
+  - y = torch.tensor([1.0]).to("cuda")
+4 + y = torch.tensor([1.0], device="cuda")
+note: This is an unsafe fix and may change runtime behavior
