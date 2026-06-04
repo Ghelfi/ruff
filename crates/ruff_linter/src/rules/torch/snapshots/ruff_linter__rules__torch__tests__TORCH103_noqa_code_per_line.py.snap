@@ -1,0 +1,12 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH103 `.item()` inside `@torch.compile` function causes a graph break
+ --> TORCH103_noqa_code_per_line.py:7:9
+  |
+5 | def f(x):
+6 |     a = x.item()  # noqa: TORCH103
+7 |     b = x.item()
+  |         ^^^^^^^^
+8 |     return a + b
+  |

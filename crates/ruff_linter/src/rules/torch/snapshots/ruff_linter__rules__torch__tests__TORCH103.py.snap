@@ -1,0 +1,31 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH103 `.item()` inside `@torch.compile` function causes a graph break
+  --> TORCH103.py:11:13
+   |
+ 9 | @torch.compile
+10 | def bad_simple(x):
+11 |     value = x.sum().item()
+   |             ^^^^^^^^^^^^^^
+12 |     return value + 1
+   |
+
+TORCH103 `.item()` inside `@torch.compile` function causes a graph break
+  --> TORCH103.py:17:12
+   |
+15 | @torch.compile(mode="default")
+16 | def bad_factory(x):
+17 |     return x.item()
+   |            ^^^^^^^^
+   |
+
+TORCH103 `.item()` inside `@torch.compile` function causes a graph break
+  --> TORCH103.py:23:16
+   |
+21 | def bad_nested(x):
+22 |     if x.sum() > 0:
+23 |         return x.max().item()
+   |                ^^^^^^^^^^^^^^
+24 |     return 0
+   |
