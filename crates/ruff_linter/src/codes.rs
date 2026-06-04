@@ -1222,6 +1222,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "005") => rules::torch::rules::MissingEval,
         (Torch, "006") => rules::torch::rules::NoGradToInferenceMode,
         (Torch, "007") => rules::torch::rules::InplaceLeafGrad,
+        (Torch, "008") => rules::torch::rules::TensorMissingDevice,
 
         _ => return None,
     })

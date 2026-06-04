@@ -1,0 +1,10 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH008 Missing explicit `device=` argument in `torch.tensor()` call
+ --> TORCH008_noqa_code_per_line.py:4:5
+  |
+3 | x = torch.tensor([1.0])  # noqa: TORCH008
+4 | y = torch.tensor([1.0])
+  |     ^^^^^^^^^^^^^^^^^^^
+  |

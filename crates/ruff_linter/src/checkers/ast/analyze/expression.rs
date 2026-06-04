@@ -1399,6 +1399,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::InplaceLeafGrad) {
                 torch::rules::inplace_leaf_grad(checker, call);
             }
+            if checker.is_rule_enabled(Rule::TensorMissingDevice) {
+                torch::rules::tensor_missing_device(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

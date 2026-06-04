@@ -1,0 +1,50 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH008 Missing explicit `device=` argument in `torch.tensor()` call
+  --> TORCH008.py:11:5
+   |
+11 | x = torch.tensor([1.0, 2.0])
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+12 | y = torch.tensor([1.0], dtype=torch.float32)
+13 | z = th.tensor([1.0])
+   |
+
+TORCH008 Missing explicit `device=` argument in `torch.tensor()` call
+  --> TORCH008.py:12:5
+   |
+11 | x = torch.tensor([1.0, 2.0])
+12 | y = torch.tensor([1.0], dtype=torch.float32)
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 | z = th.tensor([1.0])
+14 | w = tensor([1.0])
+   |
+
+TORCH008 Missing explicit `device=` argument in `torch.tensor()` call
+  --> TORCH008.py:13:5
+   |
+11 | x = torch.tensor([1.0, 2.0])
+12 | y = torch.tensor([1.0], dtype=torch.float32)
+13 | z = th.tensor([1.0])
+   |     ^^^^^^^^^^^^^^^^
+14 | w = tensor([1.0])
+   |
+
+TORCH008 Missing explicit `device=` argument in `torch.tensor()` call
+  --> TORCH008.py:14:5
+   |
+12 | y = torch.tensor([1.0], dtype=torch.float32)
+13 | z = th.tensor([1.0])
+14 | w = tensor([1.0])
+   |     ^^^^^^^^^^^^^
+15 |
+16 | # Inside expressions
+   |
+
+TORCH008 Missing explicit `device=` argument in `torch.tensor()` call
+  --> TORCH008.py:17:13
+   |
+16 | # Inside expressions
+17 | v = process(torch.tensor([1.0]))
+   |             ^^^^^^^^^^^^^^^^^^^
+   |
