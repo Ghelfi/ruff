@@ -1,0 +1,30 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH013 `.squeeze()` without `dim` may silently drop unexpected dimensions
+  --> TORCH013.py:10:6
+   |
+ 9 | x = torch.zeros(1, 3, 1)
+10 | y1 = x.squeeze()
+   |      ^^^^^^^^^^^
+11 |
+12 | # Inside expression
+   |
+
+TORCH013 `.squeeze()` without `dim` may silently drop unexpected dimensions
+  --> TORCH013.py:13:14
+   |
+12 | # Inside expression
+13 | y2 = process(x.squeeze())
+   |              ^^^^^^^^^^^
+14 |
+15 | # Chained
+   |
+
+TORCH013 `.squeeze()` without `dim` may silently drop unexpected dimensions
+  --> TORCH013.py:16:6
+   |
+15 | # Chained
+16 | y3 = x.squeeze().sum()
+   |      ^^^^^^^^^^^
+   |
