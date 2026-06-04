@@ -1,0 +1,38 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH010 `torch.tensor(t)` copies an existing tensor; use `t.clone()` instead
+  --> TORCH010.py:11:9
+   |
+ 9 | def bad_from_zeros():
+10 |     x = torch.zeros(4)
+11 |     y = torch.tensor(x)
+   |         ^^^^^^^^^^^^^^^
+   |
+
+TORCH010 `torch.tensor(t)` copies an existing tensor; use `t.clone()` instead
+  --> TORCH010.py:16:9
+   |
+14 | def bad_from_tensor():
+15 |     x = torch.tensor([1.0, 2.0])
+16 |     y = torch.tensor(x)
+   |         ^^^^^^^^^^^^^^^
+   |
+
+TORCH010 `torch.tensor(t)` copies an existing tensor; use `t.clone()` instead
+  --> TORCH010.py:21:9
+   |
+19 | def bad_from_arange():
+20 |     x = torch.arange(4)
+21 |     y = torch.tensor(x)
+   |         ^^^^^^^^^^^^^^^
+   |
+
+TORCH010 `torch.tensor(t)` copies an existing tensor; use `t.clone()` instead
+  --> TORCH010.py:46:9
+   |
+44 |     x = torch.zeros(4)
+45 |     # Single positional arg with kwargs is still the copy pattern.
+46 |     y = torch.tensor(x, dtype=torch.float32)
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |

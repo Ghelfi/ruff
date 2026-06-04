@@ -1236,6 +1236,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "007") => rules::torch::rules::InplaceLeafGrad,
         (Torch, "008") => rules::torch::rules::TensorMissingDevice,
         (Torch, "009") => rules::torch::rules::DeviceMismatch,
+        (Torch, "010") => rules::torch::rules::TensorCopyConstructor,
 
         _ => return None,
     })
