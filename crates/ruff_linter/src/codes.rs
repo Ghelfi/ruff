@@ -1227,6 +1227,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "010") => rules::torch::rules::TensorCopyConstructor,
         (Torch, "011") => rules::torch::rules::CloneWithoutDetach,
         (Torch, "012") => rules::torch::rules::UseToMethod,
+        (Torch, "013") => rules::torch::rules::SqueezeWithoutDim,
 
         _ => return None,
     })

@@ -1419,6 +1419,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::UseToMethod) {
                 torch::rules::use_to_method(checker, call);
             }
+            if checker.is_rule_enabled(Rule::SqueezeWithoutDim) {
+                torch::rules::squeeze_without_dim(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
