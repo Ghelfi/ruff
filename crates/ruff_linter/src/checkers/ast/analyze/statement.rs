@@ -1423,6 +1423,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::UselessFinally) {
                 ruff::rules::useless_finally(checker, try_stmt);
             }
+            if checker.is_rule_enabled(Rule::TryInCompile) {
+                torch::rules::try_in_compile(checker, try_stmt);
+            }
         }
         Stmt::Assign(assign @ ast::StmtAssign { targets, value, .. }) => {
             if checker.is_rule_enabled(Rule::SelfOrClsAssignment) {

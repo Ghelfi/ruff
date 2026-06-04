@@ -1,0 +1,14 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH101 `try`/`except` inside `@torch.compile` function causes a graph break
+  --> TORCH101_noqa_code_per_line.py:14:5
+   |
+12 |   @torch.compile
+13 |   def g(x):
+14 | /     try:
+15 | |         return x
+16 | |     except Exception:
+17 | |         return x
+   | |________________^
+   |

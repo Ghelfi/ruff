@@ -1,0 +1,51 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH101 `try`/`except` inside `@torch.compile` function causes a graph break
+  --> TORCH101.py:11:5
+   |
+ 9 |   @torch.compile
+10 |   def bad_simple(x):
+11 | /     try:
+12 | |         return 1.0 / x
+13 | |     except ZeroDivisionError:
+14 | |         return torch.zeros_like(x)
+   | |__________________________________^
+   |
+
+TORCH101 `try`/`except` inside `@torch.compile` function causes a graph break
+  --> TORCH101.py:19:5
+   |
+17 |   @torch.compile(mode="default")
+18 |   def bad_factory(x):
+19 | /     try:
+20 | |         return x.sum()
+21 | |     except RuntimeError:
+22 | |         return x
+   | |________________^
+   |
+
+TORCH101 `try`/`except` inside `@torch.compile` function causes a graph break
+  --> TORCH101.py:27:5
+   |
+25 |   @torch.compile
+26 |   def bad_try_finally(x):
+27 | /     try:
+28 | |         return x + 1
+29 | |     finally:
+30 | |         pass
+   | |____________^
+   |
+
+TORCH101 `try`/`except` inside `@torch.compile` function causes a graph break
+  --> TORCH101.py:36:9
+   |
+34 |   def bad_nested(x):
+35 |       if x.sum() > 0:
+36 | /         try:
+37 | |             return x
+38 | |         except Exception:
+39 | |             return x
+   | |____________________^
+40 |       return x
+   |
