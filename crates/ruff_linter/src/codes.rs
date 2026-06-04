@@ -1218,6 +1218,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "001") => rules::torch::rules::TensorConstructor,
         (Torch, "002") => rules::torch::rules::TensorDataAccess,
         (Torch, "003") => rules::torch::rules::NumpyMissingForce,
+        (Torch, "004") => rules::torch::rules::MissingDetach,
 
         _ => return None,
     })
