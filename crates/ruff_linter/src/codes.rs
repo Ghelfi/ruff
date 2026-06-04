@@ -1231,6 +1231,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "014") => rules::torch::rules::TensorThenTo,
 
         (Torch, "100") => rules::torch::rules::PrintInCompile,
+        (Torch, "101") => rules::torch::rules::TryInCompile,
 
         _ => return None,
     })
