@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH010 `torch.tensor(t)` copies an existing tensor; use `t.clone()` instead
+ --> TORCH010_noqa_code_per_line.py:7:9
+  |
+5 |     x = torch.zeros(4)
+6 |     y = torch.tensor(x)  # noqa: TORCH010
+7 |     z = torch.tensor(x)
+  |         ^^^^^^^^^^^^^^^
+  |

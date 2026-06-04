@@ -1410,6 +1410,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::TensorMissingDevice) {
                 torch::rules::tensor_missing_device(checker, call);
             }
+            if checker.is_rule_enabled(Rule::TensorCopyConstructor) {
+                torch::rules::tensor_copy_constructor(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
