@@ -36,6 +36,13 @@ mod tests {
     #[test_case(Rule::MissingEval, Path::new("TORCH005_noqa_all.py"))]
     #[test_case(Rule::MissingEval, Path::new("TORCH005_noqa_code.py"))]
     #[test_case(Rule::MissingEval, Path::new("TORCH005_noqa_code_per_line.py"))]
+    #[test_case(Rule::NoGradToInferenceMode, Path::new("TORCH006.py"))]
+    #[test_case(Rule::NoGradToInferenceMode, Path::new("TORCH006_noqa_all.py"))]
+    #[test_case(Rule::NoGradToInferenceMode, Path::new("TORCH006_noqa_code.py"))]
+    #[test_case(
+        Rule::NoGradToInferenceMode,
+        Path::new("TORCH006_noqa_code_per_line.py")
+    )]
     fn rules(rule_code: Rule, path: &Path) -> Result<()> {
         let snapshot = format!("{}", path.to_string_lossy());
         let diagnostics = test_path(
