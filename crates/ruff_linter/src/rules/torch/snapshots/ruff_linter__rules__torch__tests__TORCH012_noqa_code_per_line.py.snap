@@ -1,0 +1,18 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH012 [*] Use `.to("cuda")` instead of `.cuda()`
+ --> TORCH012_noqa_code_per_line.py:5:5
+  |
+3 | x = torch.tensor([1.0])
+4 | y = x.cuda()  # noqa: TORCH012
+5 | z = x.cuda()
+  |     ^^^^^^
+  |
+help: Replace `.cuda()` with `.to("cuda")`
+2 |
+3 | x = torch.tensor([1.0])
+4 | y = x.cuda()  # noqa: TORCH012
+  - z = x.cuda()
+5 + z = x.to("cuda")
+note: This is an unsafe fix and may change runtime behavior
