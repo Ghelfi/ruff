@@ -11,7 +11,8 @@ use crate::rules::{
     flake8_builtins, flake8_debugger, flake8_django, flake8_errmsg, flake8_import_conventions,
     flake8_pie, flake8_pyi, flake8_pytest_style, flake8_raise, flake8_return, flake8_simplify,
     flake8_slots, flake8_tidy_imports, flake8_type_checking, mccabe, pandas_vet, pep8_naming,
-    perflint, pycodestyle, pyflakes, pygrep_hooks, pylint, pyupgrade, refurb, ruff, tryceratops,
+    perflint, pycodestyle, pyflakes, pygrep_hooks, pylint, pyupgrade, refurb, ruff, torch,
+    tryceratops,
 };
 use ruff_python_ast::PythonVersion;
 
@@ -1215,6 +1216,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             }
             if checker.is_rule_enabled(Rule::CancelScopeNoCheckpoint) {
                 flake8_async::rules::cancel_scope_no_checkpoint(checker, with_stmt, items);
+            }
+            if checker.is_rule_enabled(Rule::MissingEval) {
+                torch::rules::missing_eval(checker, with_stmt);
             }
         }
         Stmt::While(while_stmt @ ast::StmtWhile { body, orelse, .. }) => {
