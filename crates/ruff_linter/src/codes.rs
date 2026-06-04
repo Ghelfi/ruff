@@ -1226,6 +1226,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "009") => rules::torch::rules::DeviceMismatch,
         (Torch, "010") => rules::torch::rules::TensorCopyConstructor,
         (Torch, "011") => rules::torch::rules::CloneWithoutDetach,
+        (Torch, "012") => rules::torch::rules::UseToMethod,
 
         _ => return None,
     })

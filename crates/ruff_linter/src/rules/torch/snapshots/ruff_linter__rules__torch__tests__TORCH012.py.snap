@@ -1,0 +1,237 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH012 [*] Use `.to("cpu")` instead of `.cpu()`
+  --> TORCH012.py:11:10
+   |
+ 9 | def to_device():
+10 |     x = torch.tensor([1.0])
+11 |     y1 = x.cpu()
+   |          ^^^^^
+12 |     y2 = x.cuda()
+   |
+help: Replace `.cpu()` with `.to("cpu")`
+8  |
+9  | def to_device():
+10 |     x = torch.tensor([1.0])
+   -     y1 = x.cpu()
+11 +     y1 = x.to("cpu")
+12 |     y2 = x.cuda()
+13 |
+14 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to("cuda")` instead of `.cuda()`
+  --> TORCH012.py:12:10
+   |
+10 |     x = torch.tensor([1.0])
+11 |     y1 = x.cpu()
+12 |     y2 = x.cuda()
+   |          ^^^^^^
+   |
+help: Replace `.cuda()` with `.to("cuda")`
+9  | def to_device():
+10 |     x = torch.tensor([1.0])
+11 |     y1 = x.cpu()
+   -     y2 = x.cuda()
+12 +     y2 = x.to("cuda")
+13 |
+14 |
+15 | def to_dtype():
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.float32)` instead of `.float()`
+  --> TORCH012.py:17:10
+   |
+15 | def to_dtype():
+16 |     x = torch.tensor([1.0])
+17 |     y1 = x.float()
+   |          ^^^^^^^
+18 |     y2 = x.double()
+19 |     y3 = x.half()
+   |
+help: Replace `.float()` with `.to(torch.float32)`
+14 |
+15 | def to_dtype():
+16 |     x = torch.tensor([1.0])
+   -     y1 = x.float()
+17 +     y1 = x.to(torch.float32)
+18 |     y2 = x.double()
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.float64)` instead of `.double()`
+  --> TORCH012.py:18:10
+   |
+16 |     x = torch.tensor([1.0])
+17 |     y1 = x.float()
+18 |     y2 = x.double()
+   |          ^^^^^^^^
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+   |
+help: Replace `.double()` with `.to(torch.float64)`
+15 | def to_dtype():
+16 |     x = torch.tensor([1.0])
+17 |     y1 = x.float()
+   -     y2 = x.double()
+18 +     y2 = x.to(torch.float64)
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.float16)` instead of `.half()`
+  --> TORCH012.py:19:10
+   |
+17 |     y1 = x.float()
+18 |     y2 = x.double()
+19 |     y3 = x.half()
+   |          ^^^^^^
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+   |
+help: Replace `.half()` with `.to(torch.float16)`
+16 |     x = torch.tensor([1.0])
+17 |     y1 = x.float()
+18 |     y2 = x.double()
+   -     y3 = x.half()
+19 +     y3 = x.to(torch.float16)
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.int64)` instead of `.long()`
+  --> TORCH012.py:20:10
+   |
+18 |     y2 = x.double()
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+   |          ^^^^^^
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+   |
+help: Replace `.long()` with `.to(torch.int64)`
+17 |     y1 = x.float()
+18 |     y2 = x.double()
+19 |     y3 = x.half()
+   -     y4 = x.long()
+20 +     y4 = x.to(torch.int64)
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.int32)` instead of `.int()`
+  --> TORCH012.py:21:10
+   |
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+   |          ^^^^^
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+   |
+help: Replace `.int()` with `.to(torch.int32)`
+18 |     y2 = x.double()
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+   -     y5 = x.int()
+21 +     y5 = x.to(torch.int32)
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+24 |     y8 = x.char()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.int16)` instead of `.short()`
+  --> TORCH012.py:22:10
+   |
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+   |          ^^^^^^^
+23 |     y7 = x.byte()
+24 |     y8 = x.char()
+   |
+help: Replace `.short()` with `.to(torch.int16)`
+19 |     y3 = x.half()
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+   -     y6 = x.short()
+22 +     y6 = x.to(torch.int16)
+23 |     y7 = x.byte()
+24 |     y8 = x.char()
+25 |     y9 = x.bool()
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.uint8)` instead of `.byte()`
+  --> TORCH012.py:23:10
+   |
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+   |          ^^^^^^
+24 |     y8 = x.char()
+25 |     y9 = x.bool()
+   |
+help: Replace `.byte()` with `.to(torch.uint8)`
+20 |     y4 = x.long()
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+   -     y7 = x.byte()
+23 +     y7 = x.to(torch.uint8)
+24 |     y8 = x.char()
+25 |     y9 = x.bool()
+26 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.int8)` instead of `.char()`
+  --> TORCH012.py:24:10
+   |
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+24 |     y8 = x.char()
+   |          ^^^^^^
+25 |     y9 = x.bool()
+   |
+help: Replace `.char()` with `.to(torch.int8)`
+21 |     y5 = x.int()
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+   -     y8 = x.char()
+24 +     y8 = x.to(torch.int8)
+25 |     y9 = x.bool()
+26 |
+27 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 [*] Use `.to(torch.bool)` instead of `.bool()`
+  --> TORCH012.py:25:10
+   |
+23 |     y7 = x.byte()
+24 |     y8 = x.char()
+25 |     y9 = x.bool()
+   |          ^^^^^^
+   |
+help: Replace `.bool()` with `.to(torch.bool)`
+22 |     y6 = x.short()
+23 |     y7 = x.byte()
+24 |     y8 = x.char()
+   -     y9 = x.bool()
+25 +     y9 = x.to(torch.bool)
+26 |
+27 |
+28 | def with_args():
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH012 Use `.to("cuda")` instead of `.cuda()`
+  --> TORCH012.py:31:9
+   |
+29 |     # Has arguments — report but do not autofix.
+30 |     x = torch.tensor([1.0])
+31 |     y = x.cuda(device=0)
+   |         ^^^^^^
+   |
+help: Replace `.cuda()` with `.to("cuda")`
