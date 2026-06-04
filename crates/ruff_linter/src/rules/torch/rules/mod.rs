@@ -10,6 +10,7 @@ pub(crate) use tensor_constructor::*;
 pub(crate) use tensor_copy_constructor::*;
 pub(crate) use tensor_data_access::*;
 pub(crate) use tensor_missing_device::*;
+pub(crate) use tensor_then_to::*;
 pub(crate) use use_to_method::*;
 
 pub(crate) mod clone_without_detach;
@@ -24,4 +25,5 @@ pub(crate) mod tensor_constructor;
 pub(crate) mod tensor_copy_constructor;
 pub(crate) mod tensor_data_access;
 pub(crate) mod tensor_missing_device;
+pub(crate) mod tensor_then_to;
 pub(crate) mod use_to_method;
