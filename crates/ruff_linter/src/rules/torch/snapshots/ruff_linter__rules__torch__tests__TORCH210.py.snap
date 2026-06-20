@@ -1,0 +1,33 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH210 Store parameters in `nn.ParameterList` instead of a plain `list`
+  --> TORCH210.py:12:28
+   |
+11 |         # Errors (should trigger TORCH210)
+12 |         self.list_params = [nn.Parameter(torch.randn(10)), nn.Parameter(torch.randn(5))]
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 |         self.comprehension = [nn.Parameter(torch.randn(10)) for _ in range(3)]
+14 |         self.dict_params = {"w": nn.Parameter(torch.randn(10))}
+   |
+
+TORCH210 Store parameters in `nn.ParameterList` instead of a plain `list`
+  --> TORCH210.py:13:30
+   |
+11 |         # Errors (should trigger TORCH210)
+12 |         self.list_params = [nn.Parameter(torch.randn(10)), nn.Parameter(torch.randn(5))]
+13 |         self.comprehension = [nn.Parameter(torch.randn(10)) for _ in range(3)]
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 |         self.dict_params = {"w": nn.Parameter(torch.randn(10))}
+   |
+
+TORCH210 Store parameters in `nn.ParameterDict` instead of a plain `dict`
+  --> TORCH210.py:14:28
+   |
+12 |         self.list_params = [nn.Parameter(torch.randn(10)), nn.Parameter(torch.randn(5))]
+13 |         self.comprehension = [nn.Parameter(torch.randn(10)) for _ in range(3)]
+14 |         self.dict_params = {"w": nn.Parameter(torch.randn(10))}
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 |
+16 |         # should NOT trigger TORCH210
+   |

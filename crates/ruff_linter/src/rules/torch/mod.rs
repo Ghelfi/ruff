@@ -116,6 +116,13 @@ mod tests {
         Rule::ModuleInPlainContainer,
         Path::new("TORCH204_noqa_code_per_line.py")
     )]
+    #[test_case(Rule::ParameterInPlainContainer, Path::new("TORCH210.py"))]
+    #[test_case(Rule::ParameterInPlainContainer, Path::new("TORCH210_noqa_all.py"))]
+    #[test_case(Rule::ParameterInPlainContainer, Path::new("TORCH210_noqa_code.py"))]
+    #[test_case(
+        Rule::ParameterInPlainContainer,
+        Path::new("TORCH210_noqa_code_per_line.py")
+    )]
     fn rules(rule_code: Rule, path: &Path) -> Result<()> {
         let snapshot = format!("{}", path.to_string_lossy());
         let diagnostics = test_path(

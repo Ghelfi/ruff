@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH210 Store parameters in `nn.ParameterDict` instead of a plain `dict`
+ --> TORCH210_noqa_code_per_line.py:9:23
+  |
+7 |         super().__init__()
+8 |         self.weights = [nn.Parameter(torch.randn(10))]  # noqa: TORCH210
+9 |         self.others = {"w": nn.Parameter(torch.randn(10))}
+  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
