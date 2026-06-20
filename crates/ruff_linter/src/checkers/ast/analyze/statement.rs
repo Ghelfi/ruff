@@ -1551,6 +1551,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::ModuleStateMutation) {
                 torch::rules::module_state_assign(checker, assign);
             }
+            if checker.is_rule_enabled(Rule::ModuleInPlainContainer) {
+                torch::rules::module_in_plain_container(checker, assign);
+            }
         }
         Stmt::AnnAssign(
             assign_stmt @ ast::StmtAnnAssign {

@@ -1,0 +1,44 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH204 Store submodules in `nn.ModuleList` instead of a plain `list`
+  --> TORCH204.py:12:28
+   |
+11 |         # Errors (should trigger TORCH204)
+12 |         self.list_layers = [nn.Linear(10, 10), nn.ReLU()]
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 |         self.comprehension = [nn.Linear(10, 10) for _ in range(3)]
+14 |         self.dict_layers = {"fc": nn.Linear(10, 10)}
+   |
+
+TORCH204 Store submodules in `nn.ModuleList` instead of a plain `list`
+  --> TORCH204.py:13:30
+   |
+11 |         # Errors (should trigger TORCH204)
+12 |         self.list_layers = [nn.Linear(10, 10), nn.ReLU()]
+13 |         self.comprehension = [nn.Linear(10, 10) for _ in range(3)]
+   |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 |         self.dict_layers = {"fc": nn.Linear(10, 10)}
+15 |         self.qualified = [torch.nn.Conv2d(3, 16, 3)]
+   |
+
+TORCH204 Store submodules in `nn.ModuleDict` instead of a plain `dict`
+  --> TORCH204.py:14:28
+   |
+12 |         self.list_layers = [nn.Linear(10, 10), nn.ReLU()]
+13 |         self.comprehension = [nn.Linear(10, 10) for _ in range(3)]
+14 |         self.dict_layers = {"fc": nn.Linear(10, 10)}
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+15 |         self.qualified = [torch.nn.Conv2d(3, 16, 3)]
+   |
+
+TORCH204 Store submodules in `nn.ModuleList` instead of a plain `list`
+  --> TORCH204.py:15:26
+   |
+13 |         self.comprehension = [nn.Linear(10, 10) for _ in range(3)]
+14 |         self.dict_layers = {"fc": nn.Linear(10, 10)}
+15 |         self.qualified = [torch.nn.Conv2d(3, 16, 3)]
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+16 |
+17 |         # should NOT trigger TORCH204
+   |

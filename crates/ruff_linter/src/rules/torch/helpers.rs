@@ -45,6 +45,15 @@ pub(crate) fn is_torch_module_subclass(
     })
 }
 
+/// Returns `true` if `expr` is an attribute access on the name `self`
+/// (e.g., `self.layers`).
+pub(crate) fn is_self_attribute(expr: &Expr) -> bool {
+    let Expr::Attribute(attribute) = expr else {
+        return false;
+    };
+    matches!(attribute.value.as_ref(), Expr::Name(name) if name.id.as_str() == "self")
+}
+
 /// Returns `true` if `func` is the callee `super().__init__` of a
 /// `super().__init__(...)` call.
 ///

@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH204 Store submodules in `nn.ModuleDict` instead of a plain `dict`
+ --> TORCH204_noqa_code_per_line.py:8:23
+  |
+6 |         super().__init__()
+7 |         self.layers = [nn.Linear(10, 10)]  # noqa: TORCH204
+8 |         self.others = {"fc": nn.Linear(10, 10)}
+  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
