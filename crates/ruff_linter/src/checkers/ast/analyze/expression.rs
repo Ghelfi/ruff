@@ -1437,6 +1437,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::DirectForwardCall) {
                 torch::rules::direct_forward_call(checker, call);
             }
+            if checker.is_rule_enabled(Rule::ArangeFloatStep) {
+                torch::rules::arange_float_step(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

@@ -1251,6 +1251,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "200") => rules::torch::rules::MissingSuperInit,
         (Torch, "201") => rules::torch::rules::MemberBeforeSuperInit,
         (Torch, "204") => rules::torch::rules::ModuleInPlainContainer,
+        (Torch, "207") => rules::torch::rules::ArangeFloatStep,
         (Torch, "210") => rules::torch::rules::ParameterInPlainContainer,
         (Torch, "213") => rules::torch::rules::DirectForwardCall,
 

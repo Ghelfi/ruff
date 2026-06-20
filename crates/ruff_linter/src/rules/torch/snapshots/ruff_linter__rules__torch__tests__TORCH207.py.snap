@@ -1,0 +1,44 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH207 `torch.arange` with a float `step` may produce an inconsistent element count
+ --> TORCH207.py:6:20
+  |
+5 | # Errors (should trigger TORCH207)
+6 | torch.arange(0, 1, 0.1)
+  |                    ^^^
+7 | torch.arange(0.0, 5.0, 0.5)
+8 | torch.arange(0, 10, step=0.25)
+  |
+
+TORCH207 `torch.arange` with a float `step` may produce an inconsistent element count
+ --> TORCH207.py:7:24
+  |
+5 | # Errors (should trigger TORCH207)
+6 | torch.arange(0, 1, 0.1)
+7 | torch.arange(0.0, 5.0, 0.5)
+  |                        ^^^
+8 | torch.arange(0, 10, step=0.25)
+9 | torch.arange(0, 1, -0.1)
+  |
+
+TORCH207 `torch.arange` with a float `step` may produce an inconsistent element count
+ --> TORCH207.py:8:26
+  |
+6 | torch.arange(0, 1, 0.1)
+7 | torch.arange(0.0, 5.0, 0.5)
+8 | torch.arange(0, 10, step=0.25)
+  |                          ^^^^
+9 | torch.arange(0, 1, -0.1)
+  |
+
+TORCH207 `torch.arange` with a float `step` may produce an inconsistent element count
+  --> TORCH207.py:9:20
+   |
+ 7 | torch.arange(0.0, 5.0, 0.5)
+ 8 | torch.arange(0, 10, step=0.25)
+ 9 | torch.arange(0, 1, -0.1)
+   |                    ^^^^
+10 |
+11 | # should NOT trigger TORCH207
+   |

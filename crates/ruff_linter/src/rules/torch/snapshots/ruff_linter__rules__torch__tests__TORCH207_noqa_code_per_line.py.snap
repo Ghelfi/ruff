@@ -1,0 +1,10 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH207 `torch.arange` with a float `step` may produce an inconsistent element count
+ --> TORCH207_noqa_code_per_line.py:4:20
+  |
+3 | torch.arange(0, 1, 0.1)  # noqa: TORCH207
+4 | torch.arange(0, 1, 0.2)
+  |                    ^^^
+  |

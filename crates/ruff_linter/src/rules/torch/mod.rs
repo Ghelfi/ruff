@@ -123,6 +123,10 @@ mod tests {
         Rule::ParameterInPlainContainer,
         Path::new("TORCH210_noqa_code_per_line.py")
     )]
+    #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207.py"))]
+    #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_all.py"))]
+    #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_code.py"))]
+    #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_code_per_line.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213_noqa_all.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213_noqa_code.py"))]

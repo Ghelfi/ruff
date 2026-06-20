@@ -1,3 +1,4 @@
+pub(crate) use arange_float_step::*;
 pub(crate) use clone_without_detach::*;
 pub(crate) use data_dependent_if::*;
 pub(crate) use device_mismatch::*;
@@ -23,6 +24,7 @@ pub(crate) use tensor_then_to::*;
 pub(crate) use try_in_compile::*;
 pub(crate) use use_to_method::*;
 
+pub(crate) mod arange_float_step;
 pub(crate) mod clone_without_detach;
 pub(crate) mod data_dependent_if;
 pub(crate) mod device_mismatch;
