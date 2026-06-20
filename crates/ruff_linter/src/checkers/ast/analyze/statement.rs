@@ -422,6 +422,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::RedefinedSlotsInSubclass) {
                 pylint::rules::redefined_slots_in_subclass(checker, class_def);
             }
+            if checker.is_rule_enabled(Rule::MissingSuperInit) {
+                torch::rules::missing_super_init(checker, class_def);
+            }
             if checker.is_rule_enabled(Rule::TooManyPublicMethods) {
                 pylint::rules::too_many_public_methods(
                     checker,

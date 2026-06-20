@@ -1,0 +1,30 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH200 `__init__` of `nn.Module` subclass does not call `super().__init__()`
+  --> TORCH200.py:11:9
+   |
+10 | class BadNoSuper(nn.Module):
+11 |     def __init__(self):
+   |         ^^^^^^^^
+12 |         self.fc = nn.Linear(10, 10)
+   |
+
+TORCH200 `__init__` of `nn.Module` subclass does not call `super().__init__()`
+  --> TORCH200.py:16:9
+   |
+15 | class BadFullyQualified(torch.nn.Module):
+16 |     def __init__(self, n):
+   |         ^^^^^^^^
+17 |         self.n = n
+   |
+
+TORCH200 `__init__` of `nn.Module` subclass does not call `super().__init__()`
+  --> TORCH200.py:27:9
+   |
+25 | class BadInherited(Base):
+26 |     # Subclass of an `nn.Module` subclass that overrides `__init__`.
+27 |     def __init__(self):
+   |         ^^^^^^^^
+28 |         self.x = 1
+   |

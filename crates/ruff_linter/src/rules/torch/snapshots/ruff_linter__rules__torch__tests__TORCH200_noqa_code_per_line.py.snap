@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH200 `__init__` of `nn.Module` subclass does not call `super().__init__()`
+  --> TORCH200_noqa_code_per_line.py:10:9
+   |
+ 9 | class Reported(nn.Module):
+10 |     def __init__(self):
+   |         ^^^^^^^^
+11 |         self.fc = nn.Linear(10, 10)
+   |

@@ -9,6 +9,7 @@
 
 use ruff_python_ast::{self as ast, Stmt, helpers::map_callable};
 use ruff_python_semantic::SemanticModel;
+use ruff_python_semantic::analyze::class::any_qualified_base_class;
 
 /// Check whether a given call expression's callable resolves to a specific
 /// fully-qualified torch symbol (e.g., `torch.Tensor`, `torch.tensor`).
@@ -28,6 +29,20 @@ pub(crate) fn is_torch_qualified_name(
     semantic
         .resolve_qualified_name(expr)
         .is_some_and(|qname| qname.to_string() == qualified_name)
+}
+
+/// Returns `true` if `class_def` directly or transitively subclasses
+/// `torch.nn.Module`.
+///
+/// Resolves through aliased imports (`import torch.nn as nn; class M(nn.Module)`)
+/// and intermediate user base classes (`class Base(nn.Module); class M(Base)`).
+pub(crate) fn is_torch_module_subclass(
+    class_def: &ast::StmtClassDef,
+    semantic: &SemanticModel,
+) -> bool {
+    any_qualified_base_class(class_def, semantic, |qualified_name| {
+        matches!(qualified_name.segments(), ["torch", "nn", "Module"])
+    })
 }
 
 /// Returns `true` if any enclosing function (innermost first) is decorated

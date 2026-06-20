@@ -12,7 +12,7 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 8  | # Errors (should trigger TORCH001)
-9  | 
+9  |
 10 | # Basic torch.Tensor() calls
    - x = torch.Tensor()
 11 + x = torch.tensor()
@@ -31,14 +31,14 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
 14 | x = torch.Tensor([1.0, 2.0, 3.0])
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
-9  | 
+9  |
 10 | # Basic torch.Tensor() calls
 11 | x = torch.Tensor()
    - x = torch.Tensor([1, 2, 3])
 12 + x = torch.tensor([1, 2, 3])
 13 | x = torch.Tensor([[1, 2], [3, 4]])
 14 | x = torch.Tensor([1.0, 2.0, 3.0])
-15 | 
+15 |
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
   --> TORCH001.py:13:5
@@ -56,7 +56,7 @@ help: Replace `torch.Tensor()` with `torch.tensor()`
    - x = torch.Tensor([[1, 2], [3, 4]])
 13 + x = torch.tensor([[1, 2], [3, 4]])
 14 | x = torch.Tensor([1.0, 2.0, 3.0])
-15 | 
+15 |
 16 | # With alias
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
@@ -75,7 +75,7 @@ help: Replace `torch.Tensor()` with `torch.tensor()`
 13 | x = torch.Tensor([[1, 2], [3, 4]])
    - x = torch.Tensor([1.0, 2.0, 3.0])
 14 + x = torch.tensor([1.0, 2.0, 3.0])
-15 | 
+15 |
 16 | # With alias
 17 | x = th.Tensor()
 
@@ -89,12 +89,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 14 | x = torch.Tensor([1.0, 2.0, 3.0])
-15 | 
+15 |
 16 | # With alias
    - x = th.Tensor()
 17 + x = th.tensor()
 18 | x = th.Tensor([1, 2, 3])
-19 | 
+19 |
 20 | # From import
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
@@ -108,12 +108,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
 20 | # From import
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
-15 | 
+15 |
 16 | # With alias
 17 | x = th.Tensor()
    - x = th.Tensor([1, 2, 3])
 18 + x = th.tensor([1, 2, 3])
-19 | 
+19 |
 20 | # From import
 21 | x = Tensor()
 
@@ -127,12 +127,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 18 | x = th.Tensor([1, 2, 3])
-19 | 
+19 |
 20 | # From import
    - x = Tensor()
 21 + x = torch.tensor()
 22 | x = Tensor([1, 2, 3])
-23 | 
+23 |
 24 | # Aliased from-import
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
@@ -146,12 +146,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
 24 | # Aliased from-import
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
-19 | 
+19 |
 20 | # From import
 21 | x = Tensor()
    - x = Tensor([1, 2, 3])
 22 + x = torch.tensor([1, 2, 3])
-23 | 
+23 |
 24 | # Aliased from-import
 25 | x = T()
 
@@ -165,12 +165,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 22 | x = Tensor([1, 2, 3])
-23 | 
+23 |
 24 | # Aliased from-import
    - x = T()
 25 + x = torch.tensor()
 26 | x = T([1, 2, 3])
-27 | 
+27 |
 28 | # With keyword arguments
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
@@ -184,12 +184,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
 28 | # With keyword arguments
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
-23 | 
+23 |
 24 | # Aliased from-import
 25 | x = T()
    - x = T([1, 2, 3])
 26 + x = torch.tensor([1, 2, 3])
-27 | 
+27 |
 28 | # With keyword arguments
 29 | x = torch.Tensor([1, 2, 3], devie="cpu")
 
@@ -203,12 +203,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 26 | x = T([1, 2, 3])
-27 | 
+27 |
 28 | # With keyword arguments
    - x = torch.Tensor([1, 2, 3], devie="cpu")
 29 + x = torch.tensor([1, 2, 3], devie="cpu")
 30 | x = th.Tensor([1, 2, 3], devie="cpu")
-31 | 
+31 |
 32 | # Nested in expressions
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
@@ -222,12 +222,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
 32 | # Nested in expressions
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
-27 | 
+27 |
 28 | # With keyword arguments
 29 | x = torch.Tensor([1, 2, 3], devie="cpu")
    - x = th.Tensor([1, 2, 3], devie="cpu")
 30 + x = th.tensor([1, 2, 3], devie="cpu")
-31 | 
+31 |
 32 | # Nested in expressions
 33 | y = foo(torch.Tensor([1, 2, 3]))
 
@@ -241,12 +241,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 30 | x = th.Tensor([1, 2, 3], devie="cpu")
-31 | 
+31 |
 32 | # Nested in expressions
    - y = foo(torch.Tensor([1, 2, 3]))
 33 + y = foo(torch.tensor([1, 2, 3]))
 34 | z = [torch.Tensor([i]) for i in range(10)]
-35 | 
+35 |
 36 | # Multi-line call
 
 TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
@@ -260,12 +260,12 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
 36 | # Multi-line call
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
-31 | 
+31 |
 32 | # Nested in expressions
 33 | y = foo(torch.Tensor([1, 2, 3]))
    - z = [torch.Tensor([i]) for i in range(10)]
 34 + z = [torch.tensor([i]) for i in range(10)]
-35 | 
+35 |
 36 | # Multi-line call
 37 | x = torch.Tensor(
 
@@ -280,7 +280,7 @@ TORCH001 [*] Use `torch.tensor()` instead of `torch.Tensor()` to create tensors
    |
 help: Replace `torch.Tensor()` with `torch.tensor()`
 34 | z = [torch.Tensor([i]) for i in range(10)]
-35 | 
+35 |
 36 | # Multi-line call
    - x = torch.Tensor(
 37 + x = torch.tensor(
