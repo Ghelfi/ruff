@@ -1434,6 +1434,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::ItemInCompile) {
                 torch::rules::item_in_compile(checker, call);
             }
+            if checker.is_rule_enabled(Rule::DirectForwardCall) {
+                torch::rules::direct_forward_call(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

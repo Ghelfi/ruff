@@ -1,0 +1,43 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH213 Call the module directly (`module(...)`) instead of `module.forward(...)`
+  --> TORCH213.py:12:9
+   |
+10 | def run(x):
+11 |     # Errors (should trigger TORCH213)
+12 |     a = model.forward(x)
+   |         ^^^^^^^^^^^^^
+13 |     b = model.forward(x, y=1)
+14 |     c = self.submodule.forward(x)
+   |
+
+TORCH213 Call the module directly (`module(...)`) instead of `module.forward(...)`
+  --> TORCH213.py:13:9
+   |
+11 |     # Errors (should trigger TORCH213)
+12 |     a = model.forward(x)
+13 |     b = model.forward(x, y=1)
+   |         ^^^^^^^^^^^^^
+14 |     c = self.submodule.forward(x)
+15 |     return a, b, c
+   |
+
+TORCH213 Call the module directly (`module(...)`) instead of `module.forward(...)`
+  --> TORCH213.py:14:9
+   |
+12 |     a = model.forward(x)
+13 |     b = model.forward(x, y=1)
+14 |     c = self.submodule.forward(x)
+   |         ^^^^^^^^^^^^^^^^^^^^^^
+15 |     return a, b, c
+   |
+
+TORCH213 Call the module directly (`module(...)`) instead of `module.forward(...)`
+  --> TORCH213.py:25:16
+   |
+23 |     def forward(self, x):
+24 |         # Error: calling a submodule's `forward` directly.
+25 |         return self.inner.forward(x)
+   |                ^^^^^^^^^^^^^^^^^^
+   |

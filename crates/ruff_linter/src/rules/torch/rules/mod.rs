@@ -1,6 +1,7 @@
 pub(crate) use clone_without_detach::*;
 pub(crate) use data_dependent_if::*;
 pub(crate) use device_mismatch::*;
+pub(crate) use direct_forward_call::*;
 pub(crate) use inplace_leaf_grad::*;
 pub(crate) use item_in_compile::*;
 pub(crate) use member_before_super_init::*;
@@ -25,6 +26,7 @@ pub(crate) use use_to_method::*;
 pub(crate) mod clone_without_detach;
 pub(crate) mod data_dependent_if;
 pub(crate) mod device_mismatch;
+pub(crate) mod direct_forward_call;
 pub(crate) mod inplace_leaf_grad;
 pub(crate) mod item_in_compile;
 pub(crate) mod member_before_super_init;

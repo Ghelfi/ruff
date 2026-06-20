@@ -1,0 +1,12 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH213 Call the module directly (`module(...)`) instead of `module.forward(...)`
+ --> TORCH213_noqa_code_per_line.py:8:9
+  |
+6 | def run(x):
+7 |     a = model.forward(x)  # noqa: TORCH213
+8 |     b = model.forward(x)
+  |         ^^^^^^^^^^^^^
+9 |     return a, b
+  |
