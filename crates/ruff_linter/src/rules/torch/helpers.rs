@@ -7,7 +7,7 @@
 //! - Aliased imports (e.g., `import torch as th; th.Tensor`)
 //! - NOT matching user-defined classes named `Tensor` or other shadowed names.
 
-use ruff_python_ast::{self as ast, Stmt, helpers::map_callable};
+use ruff_python_ast::{self as ast, Expr, Stmt, helpers::map_callable};
 use ruff_python_semantic::SemanticModel;
 use ruff_python_semantic::analyze::class::any_qualified_base_class;
 
@@ -43,6 +43,24 @@ pub(crate) fn is_torch_module_subclass(
     any_qualified_base_class(class_def, semantic, |qualified_name| {
         matches!(qualified_name.segments(), ["torch", "nn", "Module"])
     })
+}
+
+/// Returns `true` if `func` is the callee `super().__init__` of a
+/// `super().__init__(...)` call.
+///
+/// Both the bare `super()` and the explicit `super(Class, self)` forms are
+/// recognized.
+pub(crate) fn is_super_init(func: &Expr) -> bool {
+    let Expr::Attribute(attribute) = func else {
+        return false;
+    };
+    if attribute.attr.as_str() != "__init__" {
+        return false;
+    }
+    let Expr::Call(inner) = attribute.value.as_ref() else {
+        return false;
+    };
+    matches!(inner.func.as_ref(), Expr::Name(name) if name.id.as_str() == "super")
 }
 
 /// Returns `true` if any enclosing function (innermost first) is decorated

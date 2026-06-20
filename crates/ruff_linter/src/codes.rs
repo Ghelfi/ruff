@@ -1249,6 +1249,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "104") => rules::torch::rules::ModuleStateMutation,
 
         (Torch, "200") => rules::torch::rules::MissingSuperInit,
+        (Torch, "201") => rules::torch::rules::MemberBeforeSuperInit,
 
         _ => return None,
     })

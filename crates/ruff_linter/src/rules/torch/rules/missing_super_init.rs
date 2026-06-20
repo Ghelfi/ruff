@@ -6,7 +6,7 @@ use ruff_text_size::Ranged;
 
 use crate::Violation;
 use crate::checkers::ast::Checker;
-use crate::rules::torch::helpers::is_torch_module_subclass;
+use crate::rules::torch::helpers::{is_super_init, is_torch_module_subclass};
 
 /// ## What it does
 /// Checks for `nn.Module` subclasses that define `__init__` but never call
@@ -104,18 +104,4 @@ impl<'a> Visitor<'a> for SuperInitFinder {
         }
         visitor::walk_expr(self, expr);
     }
-}
-
-/// Returns `true` if `func` is the `super().__init__` attribute access.
-fn is_super_init(func: &Expr) -> bool {
-    let Expr::Attribute(attribute) = func else {
-        return false;
-    };
-    if attribute.attr.as_str() != "__init__" {
-        return false;
-    }
-    let Expr::Call(inner) = attribute.value.as_ref() else {
-        return false;
-    };
-    matches!(inner.func.as_ref(), Expr::Name(name) if name.id.as_str() == "super")
 }

@@ -1,0 +1,65 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH201 Instance attribute assigned before `super().__init__()` call
+  --> TORCH201.py:11:9
+   |
+ 9 | class BadAssign(nn.Module):
+10 |     def __init__(self):
+11 |         self.fc = nn.Linear(10, 10)
+   |         ^^^^^^^
+12 |         super().__init__()
+   |
+
+TORCH201 Instance attribute assigned before `super().__init__()` call
+  --> TORCH201.py:17:9
+   |
+15 | class BadMultiple(nn.Module):
+16 |     def __init__(self):
+17 |         self.a = 1
+   |         ^^^^^^
+18 |         self.b: int = 2
+19 |         self.c = 3
+   |
+
+TORCH201 Instance attribute assigned before `super().__init__()` call
+  --> TORCH201.py:18:9
+   |
+16 |     def __init__(self):
+17 |         self.a = 1
+18 |         self.b: int = 2
+   |         ^^^^^^
+19 |         self.c = 3
+20 |         super().__init__()
+   |
+
+TORCH201 Instance attribute assigned before `super().__init__()` call
+  --> TORCH201.py:19:9
+   |
+17 |         self.a = 1
+18 |         self.b: int = 2
+19 |         self.c = 3
+   |         ^^^^^^
+20 |         super().__init__()
+   |
+
+TORCH201 Instance attribute assigned before `super().__init__()` call
+  --> TORCH201.py:25:9
+   |
+23 | class BadAugAssign(nn.Module):
+24 |     def __init__(self):
+25 |         self.counter = 0
+   |         ^^^^^^^^^^^^
+26 |         self.counter += 1
+27 |         super().__init__()
+   |
+
+TORCH201 Instance attribute assigned before `super().__init__()` call
+  --> TORCH201.py:26:9
+   |
+24 |     def __init__(self):
+25 |         self.counter = 0
+26 |         self.counter += 1
+   |         ^^^^^^^^^^^^
+27 |         super().__init__()
+   |

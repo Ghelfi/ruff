@@ -102,6 +102,13 @@ mod tests {
     #[test_case(Rule::MissingSuperInit, Path::new("TORCH200_noqa_all.py"))]
     #[test_case(Rule::MissingSuperInit, Path::new("TORCH200_noqa_code.py"))]
     #[test_case(Rule::MissingSuperInit, Path::new("TORCH200_noqa_code_per_line.py"))]
+    #[test_case(Rule::MemberBeforeSuperInit, Path::new("TORCH201.py"))]
+    #[test_case(Rule::MemberBeforeSuperInit, Path::new("TORCH201_noqa_all.py"))]
+    #[test_case(Rule::MemberBeforeSuperInit, Path::new("TORCH201_noqa_code.py"))]
+    #[test_case(
+        Rule::MemberBeforeSuperInit,
+        Path::new("TORCH201_noqa_code_per_line.py")
+    )]
     fn rules(rule_code: Rule, path: &Path) -> Result<()> {
         let snapshot = format!("{}", path.to_string_lossy());
         let diagnostics = test_path(
