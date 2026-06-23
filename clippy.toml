@@ -12,10 +12,12 @@ doc-valid-idents = [
     "SQLAlchemy",
     "StackOverflow",
     "PyCharm",
+    "PyTorch",
     "SNMPv1",
     "SNMPv2",
     "SNMPv3",
     "PyFlakes",
+    "TorchDynamo",
 ]
 
 ignore-interior-mutability = [
