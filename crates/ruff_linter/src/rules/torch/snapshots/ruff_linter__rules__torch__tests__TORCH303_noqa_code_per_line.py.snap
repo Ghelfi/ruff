@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH303 `DataLoader(num_workers > 0)` without `worker_init_fn` leaves worker RNGs unseeded; data augmentation can repeat across epochs
+ --> TORCH303_noqa_code_per_line.py:5:1
+  |
+3 | dataset = []
+4 | DataLoader(dataset, num_workers=4)  # noqa: TORCH303
+5 | DataLoader(dataset, num_workers=4)
+  | ^^^^^^^^^^
+  |

@@ -1,0 +1,22 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH303 `DataLoader(num_workers > 0)` without `worker_init_fn` leaves worker RNGs unseeded; data augmentation can repeat across epochs
+  --> TORCH303.py:13:1
+   |
+12 | # Errors (should trigger TORCH303)
+13 | DataLoader(dataset, num_workers=4)
+   | ^^^^^^^^^^
+14 | DataLoader(dataset, num_workers=1, batch_size=32)
+   |
+
+TORCH303 `DataLoader(num_workers > 0)` without `worker_init_fn` leaves worker RNGs unseeded; data augmentation can repeat across epochs
+  --> TORCH303.py:14:1
+   |
+12 | # Errors (should trigger TORCH303)
+13 | DataLoader(dataset, num_workers=4)
+14 | DataLoader(dataset, num_workers=1, batch_size=32)
+   | ^^^^^^^^^^
+15 |
+16 | # Should NOT trigger TORCH303
+   |
