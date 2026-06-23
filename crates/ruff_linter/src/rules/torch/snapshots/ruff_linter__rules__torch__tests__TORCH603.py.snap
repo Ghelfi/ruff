@@ -1,0 +1,63 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH603 [*] `torch.load` called without `weights_only=True`
+ --> TORCH603.py:7:1
+  |
+6 | # Errors (should trigger TORCH603)
+7 | torch.load("checkpoint.pt")
+  | ^^^^^^^^^^
+8 | torch.load("checkpoint.pt", map_location="cpu")
+9 | load("checkpoint.pt")
+  |
+help: Add `weights_only=True`
+4  | from torch import load
+5  |
+6  | # Errors (should trigger TORCH603)
+   - torch.load("checkpoint.pt")
+7  + torch.load("checkpoint.pt", weights_only=True)
+8  | torch.load("checkpoint.pt", map_location="cpu")
+9  | load("checkpoint.pt")
+10 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH603 [*] `torch.load` called without `weights_only=True`
+ --> TORCH603.py:8:1
+  |
+6 | # Errors (should trigger TORCH603)
+7 | torch.load("checkpoint.pt")
+8 | torch.load("checkpoint.pt", map_location="cpu")
+  | ^^^^^^^^^^
+9 | load("checkpoint.pt")
+  |
+help: Add `weights_only=True`
+5  |
+6  | # Errors (should trigger TORCH603)
+7  | torch.load("checkpoint.pt")
+   - torch.load("checkpoint.pt", map_location="cpu")
+8  + torch.load("checkpoint.pt", map_location="cpu", weights_only=True)
+9  | load("checkpoint.pt")
+10 |
+11 | # Should NOT trigger TORCH603
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH603 [*] `torch.load` called without `weights_only=True`
+  --> TORCH603.py:9:1
+   |
+ 7 | torch.load("checkpoint.pt")
+ 8 | torch.load("checkpoint.pt", map_location="cpu")
+ 9 | load("checkpoint.pt")
+   | ^^^^
+10 |
+11 | # Should NOT trigger TORCH603
+   |
+help: Add `weights_only=True`
+6  | # Errors (should trigger TORCH603)
+7  | torch.load("checkpoint.pt")
+8  | torch.load("checkpoint.pt", map_location="cpu")
+   - load("checkpoint.pt")
+9  + load("checkpoint.pt", weights_only=True)
+10 |
+11 | # Should NOT trigger TORCH603
+12 | torch.load("checkpoint.pt", weights_only=True)
+note: This is an unsafe fix and may change runtime behavior

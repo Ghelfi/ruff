@@ -1455,6 +1455,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::ClipGradValueDeprecated) {
                 torch::rules::clip_grad_value_deprecated(checker, call);
             }
+            if checker.is_rule_enabled(Rule::LoadMissingWeightsOnly) {
+                torch::rules::load_missing_weights_only(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

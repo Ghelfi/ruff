@@ -1,0 +1,17 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH603 [*] `torch.load` called without `weights_only=True`
+ --> TORCH603_noqa_code_per_line.py:4:1
+  |
+3 | torch.load("a.pt")  # noqa: TORCH603
+4 | torch.load("b.pt")
+  | ^^^^^^^^^^
+  |
+help: Add `weights_only=True`
+1 | import torch
+2 |
+3 | torch.load("a.pt")  # noqa: TORCH603
+  - torch.load("b.pt")
+4 + torch.load("b.pt", weights_only=True)
+note: This is an unsafe fix and may change runtime behavior
