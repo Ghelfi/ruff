@@ -1,0 +1,63 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH206 [*] `torch.nn.utils.weight_norm` is deprecated; use `torch.nn.utils.parametrizations.weight_norm`
+  --> TORCH206.py:8:1
+   |
+ 7 | # Errors (should trigger TORCH206)
+ 8 | nn.utils.weight_norm(nn.Linear(10, 10))
+   | ^^^^^^^^^^^^^^^^^^^^
+ 9 | torch.nn.utils.weight_norm(nn.Linear(10, 10))
+10 | weight_norm(nn.Linear(10, 10))
+   |
+help: Replace with `torch.nn.utils.parametrizations.weight_norm`
+5  | from torch.nn.utils import weight_norm
+6  |
+7  | # Errors (should trigger TORCH206)
+   - nn.utils.weight_norm(nn.Linear(10, 10))
+8  + nn.utils.parametrizations.weight_norm(nn.Linear(10, 10))
+9  | torch.nn.utils.weight_norm(nn.Linear(10, 10))
+10 | weight_norm(nn.Linear(10, 10))
+11 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH206 [*] `torch.nn.utils.weight_norm` is deprecated; use `torch.nn.utils.parametrizations.weight_norm`
+  --> TORCH206.py:9:1
+   |
+ 7 | # Errors (should trigger TORCH206)
+ 8 | nn.utils.weight_norm(nn.Linear(10, 10))
+ 9 | torch.nn.utils.weight_norm(nn.Linear(10, 10))
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 | weight_norm(nn.Linear(10, 10))
+   |
+help: Replace with `torch.nn.utils.parametrizations.weight_norm`
+6  |
+7  | # Errors (should trigger TORCH206)
+8  | nn.utils.weight_norm(nn.Linear(10, 10))
+   - torch.nn.utils.weight_norm(nn.Linear(10, 10))
+9  + torch.nn.utils.parametrizations.weight_norm(nn.Linear(10, 10))
+10 | weight_norm(nn.Linear(10, 10))
+11 |
+12 | # Should NOT trigger TORCH206
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH206 [*] `torch.nn.utils.weight_norm` is deprecated; use `torch.nn.utils.parametrizations.weight_norm`
+  --> TORCH206.py:10:1
+   |
+ 8 | nn.utils.weight_norm(nn.Linear(10, 10))
+ 9 | torch.nn.utils.weight_norm(nn.Linear(10, 10))
+10 | weight_norm(nn.Linear(10, 10))
+   | ^^^^^^^^^^^
+11 |
+12 | # Should NOT trigger TORCH206
+   |
+help: Replace with `torch.nn.utils.parametrizations.weight_norm`
+7  | # Errors (should trigger TORCH206)
+8  | nn.utils.weight_norm(nn.Linear(10, 10))
+9  | torch.nn.utils.weight_norm(nn.Linear(10, 10))
+   - weight_norm(nn.Linear(10, 10))
+10 + torch.nn.utils.parametrizations.weight_norm(nn.Linear(10, 10))
+11 |
+12 | # Should NOT trigger TORCH206
+13 | nn.utils.parametrizations.weight_norm(nn.Linear(10, 10))
+note: This is an unsafe fix and may change runtime behavior

@@ -23,6 +23,7 @@ pub(crate) use tensor_missing_device::*;
 pub(crate) use tensor_then_to::*;
 pub(crate) use try_in_compile::*;
 pub(crate) use use_to_method::*;
+pub(crate) use weight_norm_deprecated::*;
 
 pub(crate) mod arange_float_step;
 pub(crate) mod clone_without_detach;
@@ -49,3 +50,4 @@ pub(crate) mod tensor_missing_device;
 pub(crate) mod tensor_then_to;
 pub(crate) mod try_in_compile;
 pub(crate) mod use_to_method;
+pub(crate) mod weight_norm_deprecated;

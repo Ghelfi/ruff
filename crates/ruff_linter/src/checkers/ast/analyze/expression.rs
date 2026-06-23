@@ -1440,6 +1440,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::ArangeFloatStep) {
                 torch::rules::arange_float_step(checker, call);
             }
+            if checker.is_rule_enabled(Rule::WeightNormDeprecated) {
+                torch::rules::weight_norm_deprecated(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
