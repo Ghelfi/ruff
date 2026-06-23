@@ -1452,6 +1452,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::CudaAmpGradScaler) {
                 torch::rules::cuda_amp_grad_scaler(checker, call);
             }
+            if checker.is_rule_enabled(Rule::ClipGradValueDeprecated) {
+                torch::rules::clip_grad_value_deprecated(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

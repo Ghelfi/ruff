@@ -1,0 +1,10 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH602 `torch.nn.utils.clip_grad_value_` is discouraged; prefer `torch.nn.utils.clip_grad_norm_`
+ --> TORCH602_noqa_code_per_line.py:4:1
+  |
+3 | nn.utils.clip_grad_value_([], clip_value=1.0)  # noqa: TORCH602
+4 | nn.utils.clip_grad_value_([], clip_value=2.0)
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |

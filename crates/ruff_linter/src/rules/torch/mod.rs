@@ -146,6 +146,13 @@ mod tests {
     #[test_case(Rule::CudaAmpGradScaler, Path::new("TORCH601_noqa_all.py"))]
     #[test_case(Rule::CudaAmpGradScaler, Path::new("TORCH601_noqa_code.py"))]
     #[test_case(Rule::CudaAmpGradScaler, Path::new("TORCH601_noqa_code_per_line.py"))]
+    #[test_case(Rule::ClipGradValueDeprecated, Path::new("TORCH602.py"))]
+    #[test_case(Rule::ClipGradValueDeprecated, Path::new("TORCH602_noqa_all.py"))]
+    #[test_case(Rule::ClipGradValueDeprecated, Path::new("TORCH602_noqa_code.py"))]
+    #[test_case(
+        Rule::ClipGradValueDeprecated,
+        Path::new("TORCH602_noqa_code_per_line.py")
+    )]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213_noqa_all.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213_noqa_code.py"))]

@@ -1,0 +1,33 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH602 `torch.nn.utils.clip_grad_value_` is discouraged; prefer `torch.nn.utils.clip_grad_norm_`
+  --> TORCH602.py:10:1
+   |
+ 9 | # Errors (should trigger TORCH602)
+10 | nn.utils.clip_grad_value_(params, clip_value=1.0)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+11 | torch.nn.utils.clip_grad_value_(params, clip_value=1.0)
+12 | clip_grad_value_(params, clip_value=1.0)
+   |
+
+TORCH602 `torch.nn.utils.clip_grad_value_` is discouraged; prefer `torch.nn.utils.clip_grad_norm_`
+  --> TORCH602.py:11:1
+   |
+ 9 | # Errors (should trigger TORCH602)
+10 | nn.utils.clip_grad_value_(params, clip_value=1.0)
+11 | torch.nn.utils.clip_grad_value_(params, clip_value=1.0)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 | clip_grad_value_(params, clip_value=1.0)
+   |
+
+TORCH602 `torch.nn.utils.clip_grad_value_` is discouraged; prefer `torch.nn.utils.clip_grad_norm_`
+  --> TORCH602.py:12:1
+   |
+10 | nn.utils.clip_grad_value_(params, clip_value=1.0)
+11 | torch.nn.utils.clip_grad_value_(params, clip_value=1.0)
+12 | clip_grad_value_(params, clip_value=1.0)
+   | ^^^^^^^^^^^^^^^^
+13 |
+14 | # Should NOT trigger TORCH602
+   |
