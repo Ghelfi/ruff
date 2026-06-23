@@ -1,5 +1,6 @@
 pub(crate) use arange_float_step::*;
 pub(crate) use clone_without_detach::*;
+pub(crate) use cuda_amp_autocast::*;
 pub(crate) use data_dependent_if::*;
 pub(crate) use deprecated_linalg::*;
 pub(crate) use device_mismatch::*;
@@ -28,6 +29,7 @@ pub(crate) use weight_norm_deprecated::*;
 
 pub(crate) mod arange_float_step;
 pub(crate) mod clone_without_detach;
+pub(crate) mod cuda_amp_autocast;
 pub(crate) mod data_dependent_if;
 pub(crate) mod deprecated_linalg;
 pub(crate) mod device_mismatch;

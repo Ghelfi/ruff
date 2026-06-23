@@ -1,0 +1,20 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH600 [*] `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("cuda", ...)`
+ --> TORCH600_noqa_code_per_line.py:6:6
+  |
+4 |     pass
+5 |
+6 | with torch.cuda.amp.autocast():
+  |      ^^^^^^^^^^^^^^^^^^^^^^^
+7 |     pass
+  |
+help: Replace with `torch.amp.autocast("cuda", ...)`
+3 | with torch.cuda.amp.autocast():  # noqa: TORCH600
+4 |     pass
+5 |
+  - with torch.cuda.amp.autocast():
+6 + with torch.amp.autocast("cuda"):
+7 |     pass
+note: This is an unsafe fix and may change runtime behavior

@@ -1,0 +1,61 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH600 [*] `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("cuda", ...)`
+ --> TORCH600.py:7:6
+  |
+6 | # Errors (should trigger TORCH600)
+7 | with torch.cuda.amp.autocast():
+  |      ^^^^^^^^^^^^^^^^^^^^^^^
+8 |     pass
+  |
+help: Replace with `torch.amp.autocast("cuda", ...)`
+4  | from torch.cuda.amp import autocast
+5  |
+6  | # Errors (should trigger TORCH600)
+   - with torch.cuda.amp.autocast():
+7  + with torch.amp.autocast("cuda"):
+8  |     pass
+9  |
+10 | with torch.cuda.amp.autocast(dtype=torch.float16):
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH600 [*] `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("cuda", ...)`
+  --> TORCH600.py:10:6
+   |
+ 8 |     pass
+ 9 |
+10 | with torch.cuda.amp.autocast(dtype=torch.float16):
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+11 |     pass
+   |
+help: Replace with `torch.amp.autocast("cuda", ...)`
+7  | with torch.cuda.amp.autocast():
+8  |     pass
+9  |
+   - with torch.cuda.amp.autocast(dtype=torch.float16):
+10 + with torch.amp.autocast("cuda", dtype=torch.float16):
+11 |     pass
+12 |
+13 | with autocast():
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH600 [*] `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("cuda", ...)`
+  --> TORCH600.py:13:6
+   |
+11 |     pass
+12 |
+13 | with autocast():
+   |      ^^^^^^^^
+14 |     pass
+   |
+help: Replace with `torch.amp.autocast("cuda", ...)`
+10 | with torch.cuda.amp.autocast(dtype=torch.float16):
+11 |     pass
+12 |
+   - with autocast():
+13 + with torch.amp.autocast("cuda"):
+14 |     pass
+15 |
+16 | # Should NOT trigger TORCH600
+note: This is an unsafe fix and may change runtime behavior
