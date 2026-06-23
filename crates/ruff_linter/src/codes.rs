@@ -1261,6 +1261,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "601") => rules::torch::rules::CudaAmpGradScaler,
         (Torch, "602") => rules::torch::rules::ClipGradValueDeprecated,
         (Torch, "603") => rules::torch::rules::LoadMissingWeightsOnly,
+        (Torch, "604") => rules::torch::rules::LoadMissingMapLocation,
 
         _ => return None,
     })

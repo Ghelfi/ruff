@@ -1,0 +1,33 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH604 `torch.load` called without `map_location`; tensors will be restored to their saved device
+ --> TORCH604.py:7:1
+  |
+6 | # Errors (should trigger TORCH604)
+7 | torch.load("checkpoint.pt")
+  | ^^^^^^^^^^
+8 | torch.load("checkpoint.pt", weights_only=True)
+9 | load("checkpoint.pt")
+  |
+
+TORCH604 `torch.load` called without `map_location`; tensors will be restored to their saved device
+ --> TORCH604.py:8:1
+  |
+6 | # Errors (should trigger TORCH604)
+7 | torch.load("checkpoint.pt")
+8 | torch.load("checkpoint.pt", weights_only=True)
+  | ^^^^^^^^^^
+9 | load("checkpoint.pt")
+  |
+
+TORCH604 `torch.load` called without `map_location`; tensors will be restored to their saved device
+  --> TORCH604.py:9:1
+   |
+ 7 | torch.load("checkpoint.pt")
+ 8 | torch.load("checkpoint.pt", weights_only=True)
+ 9 | load("checkpoint.pt")
+   | ^^^^
+10 |
+11 | # Should NOT trigger TORCH604
+   |

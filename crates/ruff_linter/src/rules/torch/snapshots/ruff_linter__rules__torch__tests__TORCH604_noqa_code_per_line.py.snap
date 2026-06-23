@@ -1,0 +1,10 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH604 `torch.load` called without `map_location`; tensors will be restored to their saved device
+ --> TORCH604_noqa_code_per_line.py:4:1
+  |
+3 | torch.load("a.pt")  # noqa: TORCH604
+4 | torch.load("b.pt")
+  | ^^^^^^^^^^
+  |
