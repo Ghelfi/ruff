@@ -1,0 +1,18 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH501 [*] `zero_grad(set_to_none=False)` opts into the slower legacy behaviour; prefer the default `set_to_none=True`
+ --> TORCH501_noqa_code_per_line.py:5:21
+  |
+3 | optimizer = torch.optim.SGD([], lr=0.1)
+4 | optimizer.zero_grad(set_to_none=False)  # noqa: TORCH501
+5 | optimizer.zero_grad(set_to_none=False)
+  |                     ^^^^^^^^^^^^^^^^^
+  |
+help: Change `set_to_none=False` to `set_to_none=True`
+2 |
+3 | optimizer = torch.optim.SGD([], lr=0.1)
+4 | optimizer.zero_grad(set_to_none=False)  # noqa: TORCH501
+  - optimizer.zero_grad(set_to_none=False)
+5 + optimizer.zero_grad(set_to_none=True)
+note: This is an unsafe fix and may change runtime behavior

@@ -1464,6 +1464,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::HubLoadTrustRepo) {
                 torch::rules::hub_load_trust_repo(checker, call);
             }
+            if checker.is_rule_enabled(Rule::ZeroGradSetToNone) {
+                torch::rules::zero_grad_set_to_none(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

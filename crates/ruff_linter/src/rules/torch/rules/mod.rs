@@ -31,6 +31,7 @@ pub(crate) use tensor_then_to::*;
 pub(crate) use try_in_compile::*;
 pub(crate) use use_to_method::*;
 pub(crate) use weight_norm_deprecated::*;
+pub(crate) use zero_grad_set_to_none::*;
 
 pub(crate) mod arange_float_step;
 pub(crate) mod clip_grad_value_deprecated;
@@ -65,3 +66,4 @@ pub(crate) mod tensor_then_to;
 pub(crate) mod try_in_compile;
 pub(crate) mod use_to_method;
 pub(crate) mod weight_norm_deprecated;
+pub(crate) mod zero_grad_set_to_none;

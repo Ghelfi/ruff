@@ -1,0 +1,42 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH501 [*] `zero_grad(set_to_none=False)` opts into the slower legacy behaviour; prefer the default `set_to_none=True`
+ --> TORCH501.py:8:21
+  |
+7 | # Errors (should trigger TORCH501)
+8 | optimizer.zero_grad(set_to_none=False)
+  |                     ^^^^^^^^^^^^^^^^^
+9 | model.zero_grad(set_to_none=False)
+  |
+help: Change `set_to_none=False` to `set_to_none=True`
+5  | optimizer = torch.optim.SGD([], lr=0.1)
+6  |
+7  | # Errors (should trigger TORCH501)
+   - optimizer.zero_grad(set_to_none=False)
+8  + optimizer.zero_grad(set_to_none=True)
+9  | model.zero_grad(set_to_none=False)
+10 |
+11 | # Should NOT trigger TORCH501
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH501 [*] `zero_grad(set_to_none=False)` opts into the slower legacy behaviour; prefer the default `set_to_none=True`
+  --> TORCH501.py:9:17
+   |
+ 7 | # Errors (should trigger TORCH501)
+ 8 | optimizer.zero_grad(set_to_none=False)
+ 9 | model.zero_grad(set_to_none=False)
+   |                 ^^^^^^^^^^^^^^^^^
+10 |
+11 | # Should NOT trigger TORCH501
+   |
+help: Change `set_to_none=False` to `set_to_none=True`
+6  |
+7  | # Errors (should trigger TORCH501)
+8  | optimizer.zero_grad(set_to_none=False)
+   - model.zero_grad(set_to_none=False)
+9  + model.zero_grad(set_to_none=True)
+10 |
+11 | # Should NOT trigger TORCH501
+12 | optimizer.zero_grad()
+note: This is an unsafe fix and may change runtime behavior
