@@ -1467,6 +1467,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::ZeroGradSetToNone) {
                 torch::rules::zero_grad_set_to_none(checker, call);
             }
+            if checker.is_rule_enabled(Rule::CatStackInLoop) {
+                torch::rules::cat_stack_in_loop(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

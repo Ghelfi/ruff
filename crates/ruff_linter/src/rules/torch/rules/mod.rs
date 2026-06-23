@@ -1,4 +1,5 @@
 pub(crate) use arange_float_step::*;
+pub(crate) use cat_stack_in_loop::*;
 pub(crate) use clip_grad_value_deprecated::*;
 pub(crate) use clone_without_detach::*;
 pub(crate) use cuda_amp_autocast::*;
@@ -34,6 +35,7 @@ pub(crate) use weight_norm_deprecated::*;
 pub(crate) use zero_grad_set_to_none::*;
 
 pub(crate) mod arange_float_step;
+pub(crate) mod cat_stack_in_loop;
 pub(crate) mod clip_grad_value_deprecated;
 pub(crate) mod clone_without_detach;
 pub(crate) mod cuda_amp_autocast;

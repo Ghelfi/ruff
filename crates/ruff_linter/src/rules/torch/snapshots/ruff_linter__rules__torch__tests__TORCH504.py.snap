@@ -1,0 +1,33 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH504 `torch.cat` in a loop reallocates each iteration; accumulate in a list and call `torch.cat` once
+  --> TORCH504.py:10:14
+   |
+ 8 | # Errors (should trigger TORCH504)
+ 9 | for x in xs:
+10 |     result = torch.cat([result, x])
+   |              ^^^^^^^^^
+11 |
+12 | for x in xs:
+   |
+
+TORCH504 `torch.stack` in a loop reallocates each iteration; accumulate in a list and call `torch.stack` once
+  --> TORCH504.py:13:14
+   |
+12 | for x in xs:
+13 |     result = torch.stack([result, x])
+   |              ^^^^^^^^^^^
+14 |
+15 | i = 0
+   |
+
+TORCH504 `torch.cat` in a loop reallocates each iteration; accumulate in a list and call `torch.cat` once
+  --> TORCH504.py:17:14
+   |
+15 | i = 0
+16 | while i < 5:
+17 |     result = torch.cat([result, xs[i]])
+   |              ^^^^^^^^^
+18 |     i += 1
+   |
