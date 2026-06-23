@@ -1258,6 +1258,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "213") => rules::torch::rules::DirectForwardCall,
 
         (Torch, "600") => rules::torch::rules::CudaAmpAutocast,
+        (Torch, "601") => rules::torch::rules::CudaAmpGradScaler,
 
         _ => return None,
     })

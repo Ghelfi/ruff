@@ -1,0 +1,17 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH601 [*] `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler("cuda", ...)`
+ --> TORCH601_noqa_code_per_line.py:4:11
+  |
+3 | scaler1 = torch.cuda.amp.GradScaler()  # noqa: TORCH601
+4 | scaler2 = torch.cuda.amp.GradScaler()
+  |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+help: Replace with `torch.amp.GradScaler("cuda", ...)`
+1 | import torch
+2 |
+3 | scaler1 = torch.cuda.amp.GradScaler()  # noqa: TORCH601
+  - scaler2 = torch.cuda.amp.GradScaler()
+4 + scaler2 = torch.amp.GradScaler("cuda")
+note: This is an unsafe fix and may change runtime behavior

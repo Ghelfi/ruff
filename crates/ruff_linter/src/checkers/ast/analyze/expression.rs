@@ -1449,6 +1449,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::CudaAmpAutocast) {
                 torch::rules::cuda_amp_autocast(checker, call);
             }
+            if checker.is_rule_enabled(Rule::CudaAmpGradScaler) {
+                torch::rules::cuda_amp_grad_scaler(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

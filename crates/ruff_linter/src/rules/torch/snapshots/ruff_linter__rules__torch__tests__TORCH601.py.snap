@@ -1,0 +1,63 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH601 [*] `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler("cuda", ...)`
+ --> TORCH601.py:7:10
+  |
+6 | # Errors (should trigger TORCH601)
+7 | scaler = torch.cuda.amp.GradScaler()
+  |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+8 | scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
+9 | scaler = GradScaler()
+  |
+help: Replace with `torch.amp.GradScaler("cuda", ...)`
+4  | from torch.cuda.amp import GradScaler
+5  |
+6  | # Errors (should trigger TORCH601)
+   - scaler = torch.cuda.amp.GradScaler()
+7  + scaler = torch.amp.GradScaler("cuda")
+8  | scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
+9  | scaler = GradScaler()
+10 |
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH601 [*] `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler("cuda", ...)`
+ --> TORCH601.py:8:10
+  |
+6 | # Errors (should trigger TORCH601)
+7 | scaler = torch.cuda.amp.GradScaler()
+8 | scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
+  |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+9 | scaler = GradScaler()
+  |
+help: Replace with `torch.amp.GradScaler("cuda", ...)`
+5  |
+6  | # Errors (should trigger TORCH601)
+7  | scaler = torch.cuda.amp.GradScaler()
+   - scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
+8  + scaler = torch.amp.GradScaler("cuda", init_scale=2.0**16)
+9  | scaler = GradScaler()
+10 |
+11 | # Should NOT trigger TORCH601
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH601 [*] `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler("cuda", ...)`
+  --> TORCH601.py:9:10
+   |
+ 7 | scaler = torch.cuda.amp.GradScaler()
+ 8 | scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
+ 9 | scaler = GradScaler()
+   |          ^^^^^^^^^^
+10 |
+11 | # Should NOT trigger TORCH601
+   |
+help: Replace with `torch.amp.GradScaler("cuda", ...)`
+6  | # Errors (should trigger TORCH601)
+7  | scaler = torch.cuda.amp.GradScaler()
+8  | scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
+   - scaler = GradScaler()
+9  + scaler = torch.amp.GradScaler("cuda")
+10 |
+11 | # Should NOT trigger TORCH601
+12 | scaler = torch.amp.GradScaler("cuda")
+note: This is an unsafe fix and may change runtime behavior
