@@ -109,6 +109,10 @@ mod tests {
         Rule::MemberBeforeSuperInit,
         Path::new("TORCH201_noqa_code_per_line.py")
     )]
+    #[test_case(Rule::LayerOutsideInit, Path::new("TORCH202.py"))]
+    #[test_case(Rule::LayerOutsideInit, Path::new("TORCH202_noqa_all.py"))]
+    #[test_case(Rule::LayerOutsideInit, Path::new("TORCH202_noqa_code.py"))]
+    #[test_case(Rule::LayerOutsideInit, Path::new("TORCH202_noqa_code_per_line.py"))]
     #[test_case(Rule::ModuleInPlainContainer, Path::new("TORCH204.py"))]
     #[test_case(Rule::ModuleInPlainContainer, Path::new("TORCH204_noqa_all.py"))]
     #[test_case(Rule::ModuleInPlainContainer, Path::new("TORCH204_noqa_code.py"))]
