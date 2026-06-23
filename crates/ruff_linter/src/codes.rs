@@ -1253,6 +1253,7 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "204") => rules::torch::rules::ModuleInPlainContainer,
         (Torch, "206") => rules::torch::rules::WeightNormDeprecated,
         (Torch, "207") => rules::torch::rules::ArangeFloatStep,
+        (Torch, "208") => rules::torch::rules::DeprecatedLinalg,
         (Torch, "210") => rules::torch::rules::ParameterInPlainContainer,
         (Torch, "213") => rules::torch::rules::DirectForwardCall,
 

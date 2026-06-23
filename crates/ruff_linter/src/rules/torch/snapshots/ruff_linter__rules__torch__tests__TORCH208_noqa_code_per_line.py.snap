@@ -1,0 +1,18 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH208 [*] `torch.cholesky` is deprecated; use `torch.linalg.cholesky`
+ --> TORCH208_noqa_code_per_line.py:5:1
+  |
+3 | x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])
+4 | torch.qr(x)  # noqa: TORCH208
+5 | torch.cholesky(x)
+  | ^^^^^^^^^^^^^^
+  |
+help: Replace `torch.cholesky` with `torch.linalg.cholesky`
+2 |
+3 | x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])
+4 | torch.qr(x)  # noqa: TORCH208
+  - torch.cholesky(x)
+5 + torch.linalg.cholesky(x)
+note: This is an unsafe fix and may change runtime behavior

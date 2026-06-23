@@ -1,0 +1,258 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH208 [*] `torch.qr` is deprecated; use `torch.linalg.qr`
+  --> TORCH208.py:9:1
+   |
+ 8 | # Errors (should trigger TORCH208)
+ 9 | torch.qr(x)
+   | ^^^^^^^^
+10 | torch.cholesky(x)
+11 | torch.matrix_rank(x)
+   |
+help: Replace `torch.qr` with `torch.linalg.qr`
+6  | x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])
+7  |
+8  | # Errors (should trigger TORCH208)
+   - torch.qr(x)
+9  + torch.linalg.qr(x)
+10 | torch.cholesky(x)
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.cholesky` is deprecated; use `torch.linalg.cholesky`
+  --> TORCH208.py:10:1
+   |
+ 8 | # Errors (should trigger TORCH208)
+ 9 | torch.qr(x)
+10 | torch.cholesky(x)
+   | ^^^^^^^^^^^^^^
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+   |
+help: Replace `torch.cholesky` with `torch.linalg.cholesky`
+7  |
+8  | # Errors (should trigger TORCH208)
+9  | torch.qr(x)
+   - torch.cholesky(x)
+10 + torch.linalg.cholesky(x)
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.matrix_rank` is deprecated; use `torch.linalg.matrix_rank`
+  --> TORCH208.py:11:1
+   |
+ 9 | torch.qr(x)
+10 | torch.cholesky(x)
+11 | torch.matrix_rank(x)
+   | ^^^^^^^^^^^^^^^^^
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+   |
+help: Replace `torch.matrix_rank` with `torch.linalg.matrix_rank`
+8  | # Errors (should trigger TORCH208)
+9  | torch.qr(x)
+10 | torch.cholesky(x)
+   - torch.matrix_rank(x)
+11 + torch.linalg.matrix_rank(x)
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+14 | torch.det(x)
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.pinverse` is deprecated; use `torch.linalg.pinv`
+  --> TORCH208.py:12:1
+   |
+10 | torch.cholesky(x)
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+   | ^^^^^^^^^^^^^^
+13 | torch.inverse(x)
+14 | torch.det(x)
+   |
+help: Replace `torch.pinverse` with `torch.linalg.pinv`
+9  | torch.qr(x)
+10 | torch.cholesky(x)
+11 | torch.matrix_rank(x)
+   - torch.pinverse(x)
+12 + torch.linalg.pinv(x)
+13 | torch.inverse(x)
+14 | torch.det(x)
+15 | torch.slogdet(x)
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.inverse` is deprecated; use `torch.linalg.inv`
+  --> TORCH208.py:13:1
+   |
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+   | ^^^^^^^^^^^^^
+14 | torch.det(x)
+15 | torch.slogdet(x)
+   |
+help: Replace `torch.inverse` with `torch.linalg.inv`
+10 | torch.cholesky(x)
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+   - torch.inverse(x)
+13 + torch.linalg.inv(x)
+14 | torch.det(x)
+15 | torch.slogdet(x)
+16 | torch.matrix_power(x, 2)
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.det` is deprecated; use `torch.linalg.det`
+  --> TORCH208.py:14:1
+   |
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+14 | torch.det(x)
+   | ^^^^^^^^^
+15 | torch.slogdet(x)
+16 | torch.matrix_power(x, 2)
+   |
+help: Replace `torch.det` with `torch.linalg.det`
+11 | torch.matrix_rank(x)
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+   - torch.det(x)
+14 + torch.linalg.det(x)
+15 | torch.slogdet(x)
+16 | torch.matrix_power(x, 2)
+17 | torch.matrix_exp(x)
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.slogdet` is deprecated; use `torch.linalg.slogdet`
+  --> TORCH208.py:15:1
+   |
+13 | torch.inverse(x)
+14 | torch.det(x)
+15 | torch.slogdet(x)
+   | ^^^^^^^^^^^^^
+16 | torch.matrix_power(x, 2)
+17 | torch.matrix_exp(x)
+   |
+help: Replace `torch.slogdet` with `torch.linalg.slogdet`
+12 | torch.pinverse(x)
+13 | torch.inverse(x)
+14 | torch.det(x)
+   - torch.slogdet(x)
+15 + torch.linalg.slogdet(x)
+16 | torch.matrix_power(x, 2)
+17 | torch.matrix_exp(x)
+18 | torch.symeig(x)  # No autofix: argument order differs.
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.matrix_power` is deprecated; use `torch.linalg.matrix_power`
+  --> TORCH208.py:16:1
+   |
+14 | torch.det(x)
+15 | torch.slogdet(x)
+16 | torch.matrix_power(x, 2)
+   | ^^^^^^^^^^^^^^^^^^
+17 | torch.matrix_exp(x)
+18 | torch.symeig(x)  # No autofix: argument order differs.
+   |
+help: Replace `torch.matrix_power` with `torch.linalg.matrix_power`
+13 | torch.inverse(x)
+14 | torch.det(x)
+15 | torch.slogdet(x)
+   - torch.matrix_power(x, 2)
+16 + torch.linalg.matrix_power(x, 2)
+17 | torch.matrix_exp(x)
+18 | torch.symeig(x)  # No autofix: argument order differs.
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 [*] `torch.matrix_exp` is deprecated; use `torch.linalg.matrix_exp`
+  --> TORCH208.py:17:1
+   |
+15 | torch.slogdet(x)
+16 | torch.matrix_power(x, 2)
+17 | torch.matrix_exp(x)
+   | ^^^^^^^^^^^^^^^^
+18 | torch.symeig(x)  # No autofix: argument order differs.
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+   |
+help: Replace `torch.matrix_exp` with `torch.linalg.matrix_exp`
+14 | torch.det(x)
+15 | torch.slogdet(x)
+16 | torch.matrix_power(x, 2)
+   - torch.matrix_exp(x)
+17 + torch.linalg.matrix_exp(x)
+18 | torch.symeig(x)  # No autofix: argument order differs.
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+note: This is an unsafe fix and may change runtime behavior
+
+TORCH208 `torch.symeig` is deprecated; use `torch.linalg.eigh`
+  --> TORCH208.py:18:1
+   |
+16 | torch.matrix_power(x, 2)
+17 | torch.matrix_exp(x)
+18 | torch.symeig(x)  # No autofix: argument order differs.
+   | ^^^^^^^^^^^^
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+   |
+help: Replace `torch.symeig` with `torch.linalg.eigh`
+
+TORCH208 `torch.solve` is deprecated; use `torch.linalg.solve`
+  --> TORCH208.py:19:1
+   |
+17 | torch.matrix_exp(x)
+18 | torch.symeig(x)  # No autofix: argument order differs.
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+   | ^^^^^^^^^^^
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+21 | torch.eig(x)  # No autofix: return shape differs.
+   |
+help: Replace `torch.solve` with `torch.linalg.solve`
+
+TORCH208 `torch.lstsq` is deprecated; use `torch.linalg.lstsq`
+  --> TORCH208.py:20:1
+   |
+18 | torch.symeig(x)  # No autofix: argument order differs.
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+   | ^^^^^^^^^^^
+21 | torch.eig(x)  # No autofix: return shape differs.
+22 | qr(x)
+   |
+help: Replace `torch.lstsq` with `torch.linalg.lstsq`
+
+TORCH208 `torch.eig` is deprecated; use `torch.linalg.eig`
+  --> TORCH208.py:21:1
+   |
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+21 | torch.eig(x)  # No autofix: return shape differs.
+   | ^^^^^^^^^
+22 | qr(x)
+   |
+help: Replace `torch.eig` with `torch.linalg.eig`
+
+TORCH208 [*] `torch.qr` is deprecated; use `torch.linalg.qr`
+  --> TORCH208.py:22:1
+   |
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+21 | torch.eig(x)  # No autofix: return shape differs.
+22 | qr(x)
+   | ^^
+23 |
+24 | # Should NOT trigger TORCH208
+   |
+help: Replace `torch.qr` with `torch.linalg.qr`
+19 | torch.solve(x, x)  # No autofix: argument order differs.
+20 | torch.lstsq(x, x)  # No autofix: argument order differs.
+21 | torch.eig(x)  # No autofix: return shape differs.
+   - qr(x)
+22 + torch.linalg.qr(x)
+23 |
+24 | # Should NOT trigger TORCH208
+25 | torch.linalg.qr(x)
+note: This is an unsafe fix and may change runtime behavior

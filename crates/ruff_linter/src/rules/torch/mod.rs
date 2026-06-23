@@ -130,6 +130,10 @@ mod tests {
         Rule::WeightNormDeprecated,
         Path::new("TORCH206_noqa_code_per_line.py")
     )]
+    #[test_case(Rule::DeprecatedLinalg, Path::new("TORCH208.py"))]
+    #[test_case(Rule::DeprecatedLinalg, Path::new("TORCH208_noqa_all.py"))]
+    #[test_case(Rule::DeprecatedLinalg, Path::new("TORCH208_noqa_code.py"))]
+    #[test_case(Rule::DeprecatedLinalg, Path::new("TORCH208_noqa_code_per_line.py"))]
     #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207.py"))]
     #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_all.py"))]
     #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_code.py"))]

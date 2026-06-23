@@ -1443,6 +1443,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::WeightNormDeprecated) {
                 torch::rules::weight_norm_deprecated(checker, call);
             }
+            if checker.is_rule_enabled(Rule::DeprecatedLinalg) {
+                torch::rules::deprecated_linalg(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
