@@ -1,0 +1,10 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH605 `torch.hub.load` called without `trust_repo=`; set it explicitly to silence the runtime prompt
+ --> TORCH605_noqa_code_per_line.py:4:1
+  |
+3 | torch.hub.load("pytorch/vision", "resnet50")  # noqa: TORCH605
+4 | torch.hub.load("pytorch/vision", "resnet18")
+  | ^^^^^^^^^^^^^^
+  |

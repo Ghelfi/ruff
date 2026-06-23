@@ -1,0 +1,22 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH605 `torch.hub.load` called without `trust_repo=`; set it explicitly to silence the runtime prompt
+ --> TORCH605.py:6:1
+  |
+5 | # Errors (should trigger TORCH605)
+6 | torch.hub.load("pytorch/vision", "resnet50")
+  | ^^^^^^^^^^^^^^
+7 | torch.hub.load("pytorch/vision", "resnet50", pretrained=True)
+  |
+
+TORCH605 `torch.hub.load` called without `trust_repo=`; set it explicitly to silence the runtime prompt
+ --> TORCH605.py:7:1
+  |
+5 | # Errors (should trigger TORCH605)
+6 | torch.hub.load("pytorch/vision", "resnet50")
+7 | torch.hub.load("pytorch/vision", "resnet50", pretrained=True)
+  | ^^^^^^^^^^^^^^
+8 |
+9 | # Should NOT trigger TORCH605
+  |

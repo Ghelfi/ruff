@@ -167,6 +167,10 @@ mod tests {
         Rule::LoadMissingMapLocation,
         Path::new("TORCH604_noqa_code_per_line.py")
     )]
+    #[test_case(Rule::HubLoadTrustRepo, Path::new("TORCH605.py"))]
+    #[test_case(Rule::HubLoadTrustRepo, Path::new("TORCH605_noqa_all.py"))]
+    #[test_case(Rule::HubLoadTrustRepo, Path::new("TORCH605_noqa_code.py"))]
+    #[test_case(Rule::HubLoadTrustRepo, Path::new("TORCH605_noqa_code_per_line.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213_noqa_all.py"))]
     #[test_case(Rule::DirectForwardCall, Path::new("TORCH213_noqa_code.py"))]
