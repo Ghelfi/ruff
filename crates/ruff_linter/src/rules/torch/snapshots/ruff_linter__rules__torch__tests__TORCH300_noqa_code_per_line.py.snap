@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH300 `DataLoader` with `DistributedSampler` should set `drop_last=True` to avoid uneven last batches across ranks
+ --> TORCH300_noqa_code_per_line.py:5:1
+  |
+3 | dataset = []
+4 | DataLoader(dataset, sampler=DistributedSampler(dataset))  # noqa: TORCH300
+5 | DataLoader(dataset, sampler=DistributedSampler(dataset))
+  | ^^^^^^^^^^
+  |

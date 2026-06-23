@@ -1470,6 +1470,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::CatStackInLoop) {
                 torch::rules::cat_stack_in_loop(checker, call);
             }
+            if checker.is_rule_enabled(Rule::DataLoaderDistributedDropLast) {
+                torch::rules::dataloader_distributed_drop_last(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[

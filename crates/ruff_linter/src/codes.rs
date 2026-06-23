@@ -1257,6 +1257,8 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "210") => rules::torch::rules::ParameterInPlainContainer,
         (Torch, "213") => rules::torch::rules::DirectForwardCall,
 
+        (Torch, "300") => rules::torch::rules::DataLoaderDistributedDropLast,
+
         (Torch, "501") => rules::torch::rules::ZeroGradSetToNone,
         (Torch, "504") => rules::torch::rules::CatStackInLoop,
 
