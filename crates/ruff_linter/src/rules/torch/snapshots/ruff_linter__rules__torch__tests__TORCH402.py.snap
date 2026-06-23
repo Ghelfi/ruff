@@ -1,0 +1,22 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH402 `torch.compile` should wrap `DistributedDataParallel`, not the other way around
+  --> TORCH402.py:9:25
+   |
+ 8 | # Errors (should trigger TORCH402)
+ 9 | DistributedDataParallel(torch.compile(model))
+   |                         ^^^^^^^^^^^^^^^^^^^^
+10 | DistributedDataParallel(torch.compile(model), device_ids=[0])
+   |
+
+TORCH402 `torch.compile` should wrap `DistributedDataParallel`, not the other way around
+  --> TORCH402.py:10:25
+   |
+ 8 | # Errors (should trigger TORCH402)
+ 9 | DistributedDataParallel(torch.compile(model))
+10 | DistributedDataParallel(torch.compile(model), device_ids=[0])
+   |                         ^^^^^^^^^^^^^^^^^^^^
+11 |
+12 | # Should NOT trigger TORCH402
+   |

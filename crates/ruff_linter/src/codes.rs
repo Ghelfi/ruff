@@ -1260,6 +1260,8 @@ pub fn code_to_rule(linter: Linter, code: &str) -> Option<(RuleGroup, Rule)> {
         (Torch, "300") => rules::torch::rules::DataLoaderDistributedDropLast,
         (Torch, "303") => rules::torch::rules::DataLoaderMissingWorkerInitFn,
 
+        (Torch, "402") => rules::torch::rules::CompileBeforeDdp,
+
         (Torch, "501") => rules::torch::rules::ZeroGradSetToNone,
         (Torch, "504") => rules::torch::rules::CatStackInLoop,
 

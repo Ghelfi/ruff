@@ -1,0 +1,11 @@
+---
+source: crates/ruff_linter/src/rules/torch/mod.rs
+---
+TORCH402 `torch.compile` should wrap `DistributedDataParallel`, not the other way around
+ --> TORCH402_noqa_code_per_line.py:6:25
+  |
+4 | model = ...
+5 | DistributedDataParallel(torch.compile(model))  # noqa: TORCH402
+6 | DistributedDataParallel(torch.compile(model))
+  |                         ^^^^^^^^^^^^^^^^^^^^
+  |

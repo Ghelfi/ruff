@@ -138,6 +138,10 @@ mod tests {
     #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_all.py"))]
     #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_code.py"))]
     #[test_case(Rule::ArangeFloatStep, Path::new("TORCH207_noqa_code_per_line.py"))]
+    #[test_case(Rule::CompileBeforeDdp, Path::new("TORCH402.py"))]
+    #[test_case(Rule::CompileBeforeDdp, Path::new("TORCH402_noqa_all.py"))]
+    #[test_case(Rule::CompileBeforeDdp, Path::new("TORCH402_noqa_code.py"))]
+    #[test_case(Rule::CompileBeforeDdp, Path::new("TORCH402_noqa_code_per_line.py"))]
     #[test_case(Rule::DataLoaderMissingWorkerInitFn, Path::new("TORCH303.py"))]
     #[test_case(Rule::DataLoaderMissingWorkerInitFn, Path::new("TORCH303_noqa_all.py"))]
     #[test_case(

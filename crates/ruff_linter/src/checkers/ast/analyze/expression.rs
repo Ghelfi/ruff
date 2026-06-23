@@ -1476,6 +1476,9 @@ pub(crate) fn expression(expr: &Expr, checker: &Checker) {
             if checker.is_rule_enabled(Rule::DataLoaderMissingWorkerInitFn) {
                 torch::rules::dataloader_missing_worker_init_fn(checker, call);
             }
+            if checker.is_rule_enabled(Rule::CompileBeforeDdp) {
+                torch::rules::compile_before_ddp(checker, call);
+            }
         }
         Expr::Dict(dict) => {
             if checker.any_rule_enabled(&[
