@@ -20,3 +20,13 @@ TORCH202 Layer assigned to `self` outside `__init__`; define submodules in `__in
    |                     ^^^^^^^^^^^^^^^^^^
 18 |         return self.conv(x)
    |
+
+TORCH202 Layer assigned to `self` outside `__init__`; define submodules in `__init__` instead
+  --> TORCH202.py:22:35
+   |
+20 |     def annotated(self, x):
+21 |         # Error: annotated assignment is also flagged.
+22 |         self.bn: nn.BatchNorm2d = nn.BatchNorm2d(3)
+   |                                   ^^^^^^^^^^^^^^^^^
+23 |         return self.bn(x)
+   |

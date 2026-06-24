@@ -1615,6 +1615,9 @@ pub(crate) fn statement(stmt: &Stmt, checker: &mut Checker) {
             if checker.is_rule_enabled(Rule::ModuleStateMutation) {
                 torch::rules::module_state_ann_assign(checker, assign_stmt);
             }
+            if checker.is_rule_enabled(Rule::LayerOutsideInit) {
+                torch::rules::layer_outside_init_ann(checker, assign_stmt);
+            }
             if checker.source_type.is_stub() {
                 if let Some(value) = value {
                     if checker.is_rule_enabled(Rule::AssignmentDefaultInStub) {

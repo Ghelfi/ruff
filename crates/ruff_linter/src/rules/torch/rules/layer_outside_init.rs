@@ -66,7 +66,7 @@ impl Violation for LayerOutsideInit {
     }
 }
 
-/// TORCH202
+/// TORCH202 — `self.attr = nn.Layer(...)`.
 pub(crate) fn layer_outside_init(checker: &Checker, assign: &ast::StmtAssign) {
     let semantic = checker.semantic();
 
@@ -81,7 +81,31 @@ pub(crate) fn layer_outside_init(checker: &Checker, assign: &ast::StmtAssign) {
         return;
     }
 
-    if !is_nn_layer_call(semantic, &assign.value) {
+    check_layer_assignment(checker, &assign.value);
+}
+
+/// TORCH202 — `self.attr: T = nn.Layer(...)`.
+pub(crate) fn layer_outside_init_ann(checker: &Checker, ann: &ast::StmtAnnAssign) {
+    let semantic = checker.semantic();
+
+    if !semantic.seen_module(Modules::TORCH) {
+        return;
+    }
+
+    let Some(value) = ann.value.as_ref() else {
+        return;
+    };
+    if !is_self_attribute(&ann.target) {
+        return;
+    }
+
+    check_layer_assignment(checker, value);
+}
+
+fn check_layer_assignment(checker: &Checker, value: &Expr) {
+    let semantic = checker.semantic();
+
+    if !is_nn_layer_call(semantic, value) {
         return;
     }
 
@@ -89,7 +113,7 @@ pub(crate) fn layer_outside_init(checker: &Checker, assign: &ast::StmtAssign) {
         return;
     }
 
-    checker.report_diagnostic(LayerOutsideInit, assign.value.range());
+    checker.report_diagnostic(LayerOutsideInit, value.range());
 }
 
 /// Returns `true` if the enclosing function is a method on an `nn.Module`

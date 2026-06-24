@@ -17,6 +17,11 @@ class Bad(nn.Module):
         self.conv = nn.Conv2d(3, 3, 3)
         return self.conv(x)
 
+    def annotated(self, x):
+        # Error: annotated assignment is also flagged.
+        self.bn: nn.BatchNorm2d = nn.BatchNorm2d(3)
+        return self.bn(x)
+
 
 class Good(nn.Module):
     def __init__(self):
