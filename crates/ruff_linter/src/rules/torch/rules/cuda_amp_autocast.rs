@@ -4,7 +4,7 @@ use ruff_text_size::Ranged;
 
 use crate::checkers::ast::Checker;
 use crate::rules::torch::helpers::is_torch_qualified_name;
-use crate::{AlwaysFixableViolation, Edit, Fix};
+use crate::{Edit, Fix, FixAvailability, Violation};
 
 /// ## What it does
 /// Checks for uses of the deprecated `torch.cuda.amp.autocast` and suggests
@@ -37,21 +37,29 @@ use crate::{AlwaysFixableViolation, Edit, Fix};
 /// that may shadow a later `device_type=` keyword the user had supplied via
 /// `**kwargs`. In typical usage the rewrite is behaviour-preserving.
 ///
+/// The fix is only offered when the call is written through an attribute
+/// path (e.g. `torch.cuda.amp.autocast(...)`); for `from torch.cuda.amp
+/// import autocast; autocast(...)` the diagnostic is reported without a
+/// fix, because rewriting the callee to `torch.amp.autocast` would
+/// reference an unimported module.
+///
 /// ## References
 /// - [PyTorch documentation: `torch.amp.autocast`](https://pytorch.org/docs/stable/amp.html#torch.autocast)
 #[derive(ViolationMetadata)]
 #[violation_metadata(preview_since = "0.15.2")]
 pub(crate) struct CudaAmpAutocast;
 
-impl AlwaysFixableViolation for CudaAmpAutocast {
+impl Violation for CudaAmpAutocast {
+    const FIX_AVAILABILITY: FixAvailability = FixAvailability::Sometimes;
+
     #[derive_message_formats]
     fn message(&self) -> String {
         "`torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast(\"cuda\", ...)`"
             .to_string()
     }
 
-    fn fix_title(&self) -> String {
-        "Replace with `torch.amp.autocast(\"cuda\", ...)`".to_string()
+    fn fix_title(&self) -> Option<String> {
+        Some("Replace with `torch.amp.autocast(\"cuda\", ...)`".to_string())
     }
 }
 
@@ -63,18 +71,16 @@ pub(crate) fn cuda_amp_autocast(checker: &Checker, call: &ast::ExprCall) {
         return;
     }
 
-    // Build a replacement for just the callee expression, leaving the existing
-    // argument list intact. A `"cuda"` positional is prepended below.
-    let callee_replacement = match call.func.as_ref() {
-        Expr::Attribute(_) => "torch.amp.autocast".to_string(),
-        Expr::Name(_) => "torch.amp.autocast".to_string(),
-        _ => return,
-    };
-
     let mut diagnostic = checker.report_diagnostic(CudaAmpAutocast, call.func.range());
 
-    // Replace the callee.
-    let callee_edit = Edit::range_replacement(callee_replacement, call.func.range());
+    // Only autofix when the user wrote the call through an attribute path.
+    // Rewriting the bare-name form (`from torch.cuda.amp import autocast`)
+    // would introduce a reference to `torch.amp`, which is not imported.
+    let Expr::Attribute(_) = call.func.as_ref() else {
+        return;
+    };
+
+    let callee_edit = Edit::range_replacement("torch.amp.autocast".to_string(), call.func.range());
 
     // Insert the `"cuda"` device argument at the front of the existing argument
     // list. `arguments.start()` points at the opening `(`, so insert directly

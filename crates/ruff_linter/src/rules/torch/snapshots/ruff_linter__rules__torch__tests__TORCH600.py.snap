@@ -40,7 +40,7 @@ help: Replace with `torch.amp.autocast("cuda", ...)`
 13 | with autocast():
 note: This is an unsafe fix and may change runtime behavior
 
-TORCH600 [*] `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("cuda", ...)`
+TORCH600 `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("cuda", ...)`
   --> TORCH600.py:13:6
    |
 11 |     pass
@@ -50,12 +50,3 @@ TORCH600 [*] `torch.cuda.amp.autocast` is deprecated; use `torch.amp.autocast("c
 14 |     pass
    |
 help: Replace with `torch.amp.autocast("cuda", ...)`
-10 | with torch.cuda.amp.autocast(dtype=torch.float16):
-11 |     pass
-12 |
-   - with autocast():
-13 + with torch.amp.autocast("cuda"):
-14 |     pass
-15 |
-16 | # Should NOT trigger TORCH600
-note: This is an unsafe fix and may change runtime behavior
