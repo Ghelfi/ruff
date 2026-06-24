@@ -41,7 +41,7 @@ help: Replace with `torch.amp.GradScaler("cuda", ...)`
 11 | # Should NOT trigger TORCH601
 note: This is an unsafe fix and may change runtime behavior
 
-TORCH601 [*] `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler("cuda", ...)`
+TORCH601 `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler("cuda", ...)`
   --> TORCH601.py:9:10
    |
  7 | scaler = torch.cuda.amp.GradScaler()
@@ -52,12 +52,3 @@ TORCH601 [*] `torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScale
 11 | # Should NOT trigger TORCH601
    |
 help: Replace with `torch.amp.GradScaler("cuda", ...)`
-6  | # Errors (should trigger TORCH601)
-7  | scaler = torch.cuda.amp.GradScaler()
-8  | scaler = torch.cuda.amp.GradScaler(init_scale=2.0**16)
-   - scaler = GradScaler()
-9  + scaler = torch.amp.GradScaler("cuda")
-10 |
-11 | # Should NOT trigger TORCH601
-12 | scaler = torch.amp.GradScaler("cuda")
-note: This is an unsafe fix and may change runtime behavior

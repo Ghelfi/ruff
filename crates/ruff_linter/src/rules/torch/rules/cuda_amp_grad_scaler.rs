@@ -4,7 +4,7 @@ use ruff_text_size::Ranged;
 
 use crate::checkers::ast::Checker;
 use crate::rules::torch::helpers::is_torch_qualified_name;
-use crate::{AlwaysFixableViolation, Edit, Fix};
+use crate::{Edit, Fix, FixAvailability, Violation};
 
 /// ## What it does
 /// Checks for uses of the deprecated `torch.cuda.amp.GradScaler` and suggests
@@ -34,21 +34,29 @@ use crate::{AlwaysFixableViolation, Edit, Fix};
 /// that may collide with later `device=` keyword passed dynamically (e.g.,
 /// via `**kwargs`).
 ///
+/// The fix is only offered when the call is written through an attribute
+/// path (e.g. `torch.cuda.amp.GradScaler(...)`); for `from torch.cuda.amp
+/// import GradScaler; GradScaler(...)` the diagnostic is reported without
+/// a fix, because rewriting the callee to `torch.amp.GradScaler` would
+/// reference an unimported module.
+///
 /// ## References
 /// - [PyTorch documentation: `torch.amp.GradScaler`](https://pytorch.org/docs/stable/amp.html#torch.amp.GradScaler)
 #[derive(ViolationMetadata)]
 #[violation_metadata(preview_since = "0.15.2")]
 pub(crate) struct CudaAmpGradScaler;
 
-impl AlwaysFixableViolation for CudaAmpGradScaler {
+impl Violation for CudaAmpGradScaler {
+    const FIX_AVAILABILITY: FixAvailability = FixAvailability::Sometimes;
+
     #[derive_message_formats]
     fn message(&self) -> String {
         "`torch.cuda.amp.GradScaler` is deprecated; use `torch.amp.GradScaler(\"cuda\", ...)`"
             .to_string()
     }
 
-    fn fix_title(&self) -> String {
-        "Replace with `torch.amp.GradScaler(\"cuda\", ...)`".to_string()
+    fn fix_title(&self) -> Option<String> {
+        Some("Replace with `torch.amp.GradScaler(\"cuda\", ...)`".to_string())
     }
 }
 
@@ -60,14 +68,16 @@ pub(crate) fn cuda_amp_grad_scaler(checker: &Checker, call: &ast::ExprCall) {
         return;
     }
 
-    let callee_replacement = match call.func.as_ref() {
-        Expr::Attribute(_) | Expr::Name(_) => "torch.amp.GradScaler".to_string(),
-        _ => return,
-    };
-
     let mut diagnostic = checker.report_diagnostic(CudaAmpGradScaler, call.func.range());
 
-    let callee_edit = Edit::range_replacement(callee_replacement, call.func.range());
+    // Only autofix when the user wrote the call through an attribute path;
+    // see TORCH600 for the same rationale.
+    let Expr::Attribute(_) = call.func.as_ref() else {
+        return;
+    };
+
+    let callee_edit =
+        Edit::range_replacement("torch.amp.GradScaler".to_string(), call.func.range());
     let insert_pos = call.arguments.start() + ruff_text_size::TextSize::from(1);
     let has_existing_args = !call.arguments.args.is_empty() || !call.arguments.keywords.is_empty();
     let device_arg = if has_existing_args {
