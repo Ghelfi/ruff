@@ -12,9 +12,10 @@ use crate::{Applicability, Edit, Fix, FixAvailability, Violation};
 /// ## Why is this bad?
 /// PyTorch's `torch.linalg` namespace provides a NumPy-compatible,
 /// numerically stable replacement for the older free-standing linear-algebra
-/// helpers under `torch`. The legacy entry points (e.g., `torch.symeig`,
-/// `torch.qr`, `torch.solve`) are deprecated and slated for removal — many
-/// have already been removed from recent PyTorch releases.
+/// helpers under `torch`. A few of those legacy entry points (`torch.symeig`,
+/// `torch.eig`, `torch.solve`, `torch.lstsq`) have been removed in recent
+/// PyTorch releases; the others still exist but the `torch.linalg.*`
+/// counterpart is the recommended, future-proof spelling.
 ///
 /// Prefer the matching `torch.linalg.*` API.
 ///
@@ -45,6 +46,16 @@ use crate::{Applicability, Edit, Fix, FixAvailability, Violation};
 pub(crate) struct DeprecatedLinalg {
     name: &'static str,
     replacement: &'static str,
+    status: LegacyStatus,
+}
+
+/// Whether the legacy `torch.<name>` entry point has been removed from
+/// recent PyTorch releases, or merely superseded by a preferred
+/// `torch.linalg.*` spelling.
+#[derive(Copy, Clone, Eq, PartialEq)]
+enum LegacyStatus {
+    Removed,
+    Superseded,
 }
 
 impl Violation for DeprecatedLinalg {
@@ -52,12 +63,25 @@ impl Violation for DeprecatedLinalg {
 
     #[derive_message_formats]
     fn message(&self) -> String {
-        let DeprecatedLinalg { name, replacement } = self;
-        format!("`torch.{name}` is deprecated; use `torch.linalg.{replacement}`")
+        let DeprecatedLinalg {
+            name,
+            replacement,
+            status,
+        } = self;
+        match status {
+            LegacyStatus::Removed => format!(
+                "`torch.{name}` has been removed in recent PyTorch; use `torch.linalg.{replacement}`"
+            ),
+            LegacyStatus::Superseded => {
+                format!("`torch.{name}` is superseded by `torch.linalg.{replacement}`")
+            }
+        }
     }
 
     fn fix_title(&self) -> Option<String> {
-        let DeprecatedLinalg { name, replacement } = self;
+        let DeprecatedLinalg {
+            name, replacement, ..
+        } = self;
         Some(format!(
             "Replace `torch.{name}` with `torch.linalg.{replacement}`"
         ))
@@ -76,7 +100,7 @@ pub(crate) fn deprecated_linalg(checker: &Checker, call: &ast::ExprCall) {
     let &["torch", leaf] = segments else {
         return;
     };
-    let Some((name, replacement)) = linalg_replacement(leaf) else {
+    let Some((name, replacement, status)) = linalg_replacement(leaf) else {
         return;
     };
 
@@ -97,31 +121,39 @@ pub(crate) fn deprecated_linalg(checker: &Checker, call: &ast::ExprCall) {
         _ => None,
     };
 
-    let mut diagnostic =
-        checker.report_diagnostic(DeprecatedLinalg { name, replacement }, call.func.range());
+    let mut diagnostic = checker.report_diagnostic(
+        DeprecatedLinalg {
+            name,
+            replacement,
+            status,
+        },
+        call.func.range(),
+    );
     if let Some(edit) = fix {
         diagnostic.set_fix(Fix::applicable_edit(edit, Applicability::Unsafe));
     }
 }
 
-/// Map a deprecated `torch.<name>` linalg function to its replacement under
-/// `torch.linalg`. Returns the canonical `(name, replacement)` pair as static
-/// strings so the diagnostic can carry them by value.
-fn linalg_replacement(name: &str) -> Option<(&'static str, &'static str)> {
+/// Map a legacy `torch.<name>` linalg function to its replacement under
+/// `torch.linalg`, paired with whether the legacy entry point has been
+/// removed or merely superseded.
+fn linalg_replacement(name: &str) -> Option<(&'static str, &'static str, LegacyStatus)> {
     Some(match name {
-        "symeig" => ("symeig", "eigh"),
-        "eig" => ("eig", "eig"),
-        "qr" => ("qr", "qr"),
-        "solve" => ("solve", "solve"),
-        "lstsq" => ("lstsq", "lstsq"),
-        "cholesky" => ("cholesky", "cholesky"),
-        "matrix_rank" => ("matrix_rank", "matrix_rank"),
-        "matrix_power" => ("matrix_power", "matrix_power"),
-        "matrix_exp" => ("matrix_exp", "matrix_exp"),
-        "pinverse" => ("pinverse", "pinv"),
-        "inverse" => ("inverse", "inv"),
-        "det" => ("det", "det"),
-        "slogdet" => ("slogdet", "slogdet"),
+        // Removed from recent PyTorch releases.
+        "symeig" => ("symeig", "eigh", LegacyStatus::Removed),
+        "eig" => ("eig", "eig", LegacyStatus::Removed),
+        "solve" => ("solve", "solve", LegacyStatus::Removed),
+        "lstsq" => ("lstsq", "lstsq", LegacyStatus::Removed),
+        // Still present but superseded by the `torch.linalg` spelling.
+        "qr" => ("qr", "qr", LegacyStatus::Superseded),
+        "cholesky" => ("cholesky", "cholesky", LegacyStatus::Superseded),
+        "matrix_rank" => ("matrix_rank", "matrix_rank", LegacyStatus::Superseded),
+        "matrix_power" => ("matrix_power", "matrix_power", LegacyStatus::Superseded),
+        "matrix_exp" => ("matrix_exp", "matrix_exp", LegacyStatus::Superseded),
+        "pinverse" => ("pinverse", "pinv", LegacyStatus::Superseded),
+        "inverse" => ("inverse", "inv", LegacyStatus::Superseded),
+        "det" => ("det", "det", LegacyStatus::Superseded),
+        "slogdet" => ("slogdet", "slogdet", LegacyStatus::Superseded),
         _ => return None,
     })
 }
