@@ -65,11 +65,12 @@ pub(crate) fn load_missing_weights_only(checker: &Checker, call: &ast::ExprCall)
         return;
     }
 
-    // If `weights_only` is already supplied (positionally or as a keyword),
-    // there's nothing to do.
+    // `weights_only` is keyword-only on `torch.load`; pass `usize::MAX` so
+    // the positional fallback can never spuriously match a different
+    // argument.
     if call
         .arguments
-        .find_argument_value("weights_only", 4)
+        .find_argument_value("weights_only", usize::MAX)
         .is_some()
     {
         return;
