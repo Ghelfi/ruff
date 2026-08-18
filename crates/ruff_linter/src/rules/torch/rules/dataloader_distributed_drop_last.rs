@@ -4,7 +4,7 @@ use ruff_text_size::Ranged;
 
 use crate::Violation;
 use crate::checkers::ast::Checker;
-use crate::rules::torch::helpers::is_torch_qualified_name;
+use crate::rules::torch::helpers::{is_torch_qualified_name, resolve_single_step};
 
 /// ## What it does
 /// Checks for `DataLoader` instantiated with a `DistributedSampler` and no
@@ -56,11 +56,14 @@ pub(crate) fn dataloader_distributed_drop_last(checker: &Checker, call: &ast::Ex
     }
 
     // `sampler` is the 4th positional parameter on `DataLoader.__init__`.
+    // Follow a single-step `sampler = DistributedSampler(...); DataLoader(...
+    // sampler=sampler)` binding so the common two-line form is caught
+    // alongside the inline construction.
     let Some(sampler) = call.arguments.find_argument_value("sampler", 3) else {
         return;
     };
 
-    if !is_distributed_sampler(semantic, sampler) {
+    if !is_distributed_sampler(semantic, resolve_single_step(semantic, sampler)) {
         return;
     }
 

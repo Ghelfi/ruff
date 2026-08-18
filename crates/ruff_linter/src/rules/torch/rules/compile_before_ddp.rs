@@ -5,7 +5,7 @@ use ruff_text_size::Ranged;
 
 use crate::Violation;
 use crate::checkers::ast::Checker;
-use crate::rules::torch::helpers::is_torch_qualified_name;
+use crate::rules::torch::helpers::{is_torch_qualified_name, resolve_single_step};
 
 /// ## What it does
 /// Checks for `DistributedDataParallel(torch.compile(model))` — i.e.,
@@ -60,12 +60,14 @@ pub(crate) fn compile_before_ddp(checker: &Checker, call: &ast::ExprCall) {
         return;
     }
 
-    // First positional argument to DDP is the wrapped module.
+    // First positional argument to DDP is the wrapped module. Follow a
+    // single-step `compiled = torch.compile(model); DDP(compiled)` binding
+    // so the typical two-line form is caught alongside the direct nesting.
     let Some(module) = call.arguments.find_argument_value("module", 0) else {
         return;
     };
 
-    let Expr::Call(inner) = module else {
+    let Expr::Call(inner) = resolve_single_step(semantic, module) else {
         return;
     };
 
@@ -73,7 +75,7 @@ pub(crate) fn compile_before_ddp(checker: &Checker, call: &ast::ExprCall) {
         return;
     }
 
-    checker.report_diagnostic(CompileBeforeDdp, inner.range());
+    checker.report_diagnostic(CompileBeforeDdp, module.range());
 }
 
 /// Returns `true` if `expr` resolves to `torch.nn.parallel.DistributedDataParallel`.

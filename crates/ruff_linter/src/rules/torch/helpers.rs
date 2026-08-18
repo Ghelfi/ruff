@@ -10,6 +10,7 @@
 use ruff_python_ast::{self as ast, Expr, Stmt, helpers::map_callable};
 use ruff_python_semantic::SemanticModel;
 use ruff_python_semantic::analyze::class::any_qualified_base_class;
+use ruff_python_semantic::{BindingKind, ScopeKind};
 
 /// Check whether a given call expression's callable resolves to a specific
 /// fully-qualified torch symbol (e.g., `torch.Tensor`, `torch.tensor`).
@@ -97,4 +98,41 @@ pub(crate) fn is_compiled_function(func: &ast::StmtFunctionDef, semantic: &Seman
             "torch.compile",
         )
     })
+}
+
+/// Resolves a single-step binding. If `expr` is a `Name` bound by exactly one
+/// `x = <value>` assignment in a function scope, returns `<value>`. Otherwise
+/// returns `expr` unchanged.
+///
+/// Restricted to function scopes and to bindings with a single source so that
+/// the lookup approximates "this name was just assigned to <value>" without
+/// chasing re-bindings, conditional assignments, or module-level state.
+pub(crate) fn resolve_single_step<'a>(semantic: &'a SemanticModel<'a>, expr: &'a Expr) -> &'a Expr {
+    let Expr::Name(name) = expr else {
+        return expr;
+    };
+    let Some(binding_id) = semantic.resolve_name(name) else {
+        return expr;
+    };
+    let binding = semantic.binding(binding_id);
+    if !matches!(binding.kind, BindingKind::Assignment) {
+        return expr;
+    }
+    let scope = &semantic.scopes[binding.scope];
+    if !matches!(scope.kind, ScopeKind::Function(_)) {
+        return expr;
+    }
+    let Some(Stmt::Assign(assign)) = binding.statement(semantic) else {
+        return expr;
+    };
+    let [target] = assign.targets.as_slice() else {
+        return expr;
+    };
+    let Expr::Name(target_name) = target else {
+        return expr;
+    };
+    if target_name.id != name.id {
+        return expr;
+    }
+    &assign.value
 }
